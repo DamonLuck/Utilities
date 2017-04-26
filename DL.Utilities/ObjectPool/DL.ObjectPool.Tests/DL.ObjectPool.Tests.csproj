@@ -61,7 +61,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjectPoolTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestObjects\TestObject.cs" />
+    <Compile Include="TestObjects\TestObjectWithoutReleaseCount.cs" />
+    <Compile Include="TestObjects\TestObjectWithReleaseCount.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -71,6 +75,9 @@
       <Project>{7bcdbdd5-c27c-4e83-a27f-b37267d02b8e}</Project>
       <Name>DL.ObjectPool</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
