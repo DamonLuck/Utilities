@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DL.ECS.Core.Exceptions
+﻿namespace DL.ECS.Core.Exceptions
 {
     public class EntityException : ECSException
     {
