@@ -1,7 +1,7 @@
 ﻿using DL.ObjectPool;
 using System;
 
-namespace ECS.Core
+namespace DL.ECS.Core
 {
     public class Entity : PooledObject<Entity>
     {

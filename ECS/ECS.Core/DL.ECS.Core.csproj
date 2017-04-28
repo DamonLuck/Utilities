@@ -7,8 +7,8 @@
     <ProjectGuid>{6E6F625D-F7AB-407D-9E67-9A758F8C3F0B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ECS.Core</RootNamespace>
-    <AssemblyName>ECS.Core</AssemblyName>
+    <RootNamespace>DL.ECS.Core</RootNamespace>
+    <AssemblyName>DL.ECS.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace ECS.Core.Tests
+namespace DL.ECS.Core.Tests
 {
     public class EntityTests
     {

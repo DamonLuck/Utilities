@@ -8,8 +8,8 @@
     <ProjectGuid>{8B9C902A-B9BA-4FDD-BF9D-20E1297D814B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ECS.Core.Tests</RootNamespace>
-    <AssemblyName>ECS.Core.Tests</AssemblyName>
+    <RootNamespace>DL.ECS.Core.Tests</RootNamespace>
+    <AssemblyName>DL.ECS.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -72,9 +72,9 @@
       <Project>{7bcdbdd5-c27c-4e83-a27f-b37267d02b8e}</Project>
       <Name>DL.ObjectPool</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ECS.Core\ECS.Core.csproj">
+    <ProjectReference Include="..\ECS.Core\DL.ECS.Core.csproj">
       <Project>{6e6f625d-f7ab-407d-9e67-9a758f8c3f0b}</Project>
-      <Name>ECS.Core</Name>
+      <Name>DL.ECS.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

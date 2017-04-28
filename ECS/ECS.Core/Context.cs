@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECS.Core
+namespace DL.ECS.Core
 {
     public class Context
     {
