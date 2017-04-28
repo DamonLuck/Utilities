@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DL.ECS.Core.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace DL.ECS.Core
@@ -17,8 +18,8 @@ namespace DL.ECS.Core
         public void Destroy(IEntity entity)
         {
             if (!_entities.ContainsKey(entity.Id))
-                throw new InvalidOperationException($"Cannot destroy. Entity with "+
-                    $"id {entity.Id} no longer exists");
+                throw new EntityException($"Cannot destroy. Entity with "+
+                    $"id {entity.Id} no longer exists", entity);
 
             Entity entityToDestroy = _entities[entity.Id];
             _entities.Remove(entity.Id);

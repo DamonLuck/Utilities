@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Exceptions\ECSException.cs" />
+    <Compile Include="Exceptions\EntityException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

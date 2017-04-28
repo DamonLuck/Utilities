@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using DL.ECS.Core.Exceptions;
+using FluentAssertions;
+using System;
 using Xunit;
 
 namespace DL.ECS.Core.Tests
@@ -34,6 +36,16 @@ namespace DL.ECS.Core.Tests
             IEntity e2 = sut.Create();
 
             initialId.Should().NotBe(e2.Id);
+        }
+
+        [Fact]
+        public void Entities_DestroyedTwice_ThrowException()
+        {
+            Context sut = CreateSut();
+            IEntity entity = sut.Create();
+            long initialId = entity.Id;
+            sut.Destroy(entity);
+            Assert.Throws(typeof(EntityException), () => sut.Destroy(entity));
         }
 
         private Context CreateSut() => new Context();
