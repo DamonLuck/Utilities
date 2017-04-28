@@ -1,5 +1,4 @@
 ﻿using DL.ECS.Core.Exceptions;
-using System;
 using System.Collections.Generic;
 
 namespace DL.ECS.Core
@@ -7,10 +6,16 @@ namespace DL.ECS.Core
     public class Context
     {
         private Dictionary<long, Entity> _entities = new Dictionary<long, Entity>();
+        private readonly int _totalComponents;
+
+        public Context(int totalComponents)
+        {
+            _totalComponents = totalComponents;
+        }
 
         public IEntity Create()
         {
-            Entity newEntity = Entity.Create();
+            Entity newEntity = Entity.Create(_totalComponents);
             _entities.Add(newEntity.Id, newEntity);
             return newEntity;
         }

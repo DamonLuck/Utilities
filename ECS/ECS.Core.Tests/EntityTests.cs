@@ -1,11 +1,10 @@
 ﻿using DL.ECS.Core.Exceptions;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace DL.ECS.Core.Tests
 {
-    public class EntityTests
+    public class EntityCreationTests
     {
         [Fact]
         public void Entity_CanBe_Created()
@@ -48,6 +47,31 @@ namespace DL.ECS.Core.Tests
             Assert.Throws(typeof(EntityException), () => sut.Destroy(entity));
         }
 
-        private Context CreateSut() => new Context();
+        [Fact]
+        public void Entities_AreCreated_WithTotalComponentCount()
+        {
+            Context sut = CreateSut();
+            IEntity entity = sut.Create();
+
+            entity.TotalComponents.Should().Be(_totalComponents);
+        }
+
+        [Fact]
+
+        public void Entities_AreCreated_WithComponentsInitialisedAsNull()
+        {
+            Context sut = CreateSut();
+            IEntity entity = sut.Create();
+
+            entity.TotalComponents.Should().Be(_totalComponents);
+
+            for (int index = 0; index < _totalComponents; index++)
+            {
+                entity.GetComponent(index).Should().BeNull();
+            }
+        }
+
+        private const int _totalComponents = 5;
+        private Context CreateSut() => new Context(_totalComponents);
     }
 }
