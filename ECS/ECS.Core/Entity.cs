@@ -3,9 +3,13 @@ using System;
 
 namespace DL.ECS.Core
 {
-    public class Entity : PooledObject<Entity>
+    public interface IEntity
     {
-        public event EventHandler<long> EntityReleased;
+        long Id { get; }
+    }
+
+    internal class Entity : PooledObject<Entity>, IEntity
+    {
         private static long _currentId = 0;
         public long Id { get; private set; }
 
@@ -14,12 +18,6 @@ namespace DL.ECS.Core
             Entity entity = _objectPool.Create();
             entity.Id = _currentId++;
             return entity;
-        }
-
-        public override void Release()
-        {
-            base.Release();
-            EntityReleased?.Invoke(this, this.Id);
         }
     }
 }

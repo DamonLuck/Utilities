@@ -1,13 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DL.ECS.Core
 {
     public class Context
     {
-        public Entity Create() => Entity.Create();
+        private Dictionary<long, Entity> _entities = new Dictionary<long, Entity>();
+
+        public IEntity Create()
+        {
+            Entity newEntity = Entity.Create();
+            _entities.Add(newEntity.Id, newEntity);
+            return newEntity;
+        }
+
+        public void Destroy(IEntity entity)
+        {
+            if (!_entities.ContainsKey(entity.Id))
+                throw new InvalidOperationException($"Cannot destroy. Entity with "+
+                    $"id {entity.Id} no longer exists");
+
+            Entity entityToDestroy = _entities[entity.Id];
+            _entities.Remove(entity.Id);
+            entityToDestroy.Release();
+        }
     }
 }
