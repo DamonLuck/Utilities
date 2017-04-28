@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ECS", "ECS", "{63362875-FE3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL.ECS.Core", "ECS\ECS.Core\DL.ECS.Core.csproj", "{6E6F625D-F7AB-407D-9E67-9A758F8C3F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.Core.Tests", "ECS\ECS.Core.Tests\ECS.Core.Tests.csproj", "{8B9C902A-B9BA-4FDD-BF9D-20E1297D814B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL.ECS.Core.Tests", "ECS\ECS.Core.Tests\DL.ECS.Core.Tests.csproj", "{8B9C902A-B9BA-4FDD-BF9D-20E1297D814B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
