@@ -29,7 +29,7 @@
         /// valid but the object itself is invalid.
         /// Once released it's made available to future calls to create
         /// </summary>
-        public void Release() => _objectPool.Release(this as TObjectType);
+        public virtual void Release() => _objectPool.Release(this as TObjectType);
 
         protected static ObjectPool<TObjectType> _objectPool =
             new ObjectPool<TObjectType>(() => new TObjectType());
