@@ -6,7 +6,7 @@
         {
             Entity = entity;
             Index = index;
-            Message = $"Entity with id {entity.Id} does not have component with index {index}";
+            Message = $"Entity with id {entity.EntityId} does not have component with index {index}";
         }
 
         public new string Message { get; }

@@ -22,7 +22,7 @@ namespace DL.ECS.Core.Tests
             IEntity entity1 = sut.Create();
             IEntity entity2 = sut.Create();
 
-            entity1.Id.Should().NotBe(entity2.Id);
+            entity1.EntityId.Should().NotBe(entity2.EntityId);
         }
 
         [Fact]
@@ -30,11 +30,11 @@ namespace DL.ECS.Core.Tests
         {
             Context sut = CreateSut();
             IEntity entity = sut.Create();
-            long initialId = entity.Id;
+            EntityId initialId = entity.EntityId;
             sut.Destroy(entity);
             IEntity e2 = sut.Create();
 
-            initialId.Should().NotBe(e2.Id);
+            initialId.Should().NotBe(e2.EntityId);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace DL.ECS.Core.Tests
         {
             Context sut = CreateSut();
             IEntity entity = sut.Create();
-            long initialId = entity.Id;
+            EntityId initialId = entity.EntityId;
             sut.Destroy(entity);
             Assert.Throws(typeof(EntityException), () => sut.Destroy(entity));
         }
