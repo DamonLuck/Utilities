@@ -29,6 +29,11 @@ namespace DL.ECS.Core
             return set;
         }
 
+        public IEnumerable<IEntity> GetEntities() => _entities.Values;
+
+        public IEnumerable<IEntity> GetSetEntities(RelationId relationId) 
+            => _relationManager.GetEntities(relationId);
+
         internal IEntity GetEntity(EntityId index)
         {
             return _entities[index];

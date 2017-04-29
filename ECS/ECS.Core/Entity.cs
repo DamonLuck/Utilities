@@ -1,6 +1,7 @@
 ﻿using DL.ObjectPool;
 using DL.ECS.Core.Exceptions;
 using System;
+using System.Text;
 
 namespace DL.ECS.Core
 {
@@ -39,8 +40,8 @@ namespace DL.ECS.Core
         int TotalComponents { get; }
 
         IComponent GetComponent(int index);
-        void AddComponent(IComponent component, int index);
-        void RemoveComponent(int index);
+        IEntity AddComponent(IComponent component, int index);
+        IEntity RemoveComponent(int index);
     }
 
     internal class Entity : PooledObject<Entity>, IEntity
@@ -61,20 +62,35 @@ namespace DL.ECS.Core
 
         public IComponent GetComponent(int index) => _components[index];
 
-        public void AddComponent(IComponent component, int index)
+        public IEntity AddComponent(IComponent component, int index)
         {
             if (_components[index] != null)
                 throw new EntityAlreadyHasComponentException(this, component, index);
 
             _components[index] = component;
+            return this;
         }
 
-        public void RemoveComponent(int index)
+        public IEntity RemoveComponent(int index)
         {
             if (_components[index] == null)
                 throw new EntityDoesNotHaveComponentException(this, index);
 
             _components[index] = null;
+            return this;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Entity {EntityId.Id}\t");
+            foreach(var component in _components)
+            {
+                if(component != null)
+                    sb.Append($"Component {component.ToString()}\t");
+            }
+
+            return sb.ToString();
         }
     }
 }
