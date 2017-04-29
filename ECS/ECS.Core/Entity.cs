@@ -4,7 +4,7 @@ using System;
 
 namespace DL.ECS.Core
 {
-    public struct EntityId
+    public class EntityId
     {
         public EntityId(long id)
         {

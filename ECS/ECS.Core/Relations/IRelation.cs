@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DL.ECS.Core
 {
-    public struct RelationId
+    public class RelationId
     {
         public RelationId(long id)
         {
