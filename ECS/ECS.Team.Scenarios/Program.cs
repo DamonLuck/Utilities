@@ -5,11 +5,6 @@ using System.Collections.Generic;
 
 namespace DL.ECS.Team.Scenarios
 {
-    public class TeamManagement
-    {
-
-    }
-
     class Program
     {
         static void Main(string[] args)
