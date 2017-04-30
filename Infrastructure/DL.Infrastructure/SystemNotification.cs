@@ -10,7 +10,9 @@ namespace DL.Infrastructure
     {
         public SystemNotification()
         {
-            Log.Logger = new LoggerConfiguration().CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Trace()
+                .CreateLogger();
             Logger = Log.Logger;
         }
 

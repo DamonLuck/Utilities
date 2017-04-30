@@ -3,38 +3,10 @@ using DL.ECS.Core.Exceptions;
 using System;
 using System.Text;
 using DL.ECS.Core.Components;
+using DL.Infrastructure;
 
 namespace DL.ECS.Core
 {
-    public class EntityId
-    {
-        public EntityId(long id)
-        {
-            Id = id;
-        }
-        public long Id { get; }
-
-        public override bool Equals(Object obj)
-        {
-            return obj is EntityId && this == (EntityId)obj;
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        public static bool operator ==(EntityId x, EntityId y)
-        {
-            return x.Id == y.Id;
-        }
-
-        public static bool operator !=(EntityId x, EntityId y)
-        {
-            return !(x == y);
-        }
-    }
-
     public interface IEntity
     {
         EntityId EntityId { get; }
@@ -59,6 +31,8 @@ namespace DL.ECS.Core
             entity.TotalComponents = totalComponents;
             entity._components = new IComponent[totalComponents];
             entity._componentManager = componentManager;
+
+            AmbientLogger.SystemNotification.EntityCreated(entity);
             return entity;
         }
 
