@@ -1,16 +1,8 @@
 ﻿using DL.ECS.Core;
 using DL.ECS.Core.Systems;
-using System;
 
 namespace DL.ECS.Team.Scenarios.Systems
 {
-    /*
-     * These systems will run under a higher level state machine
-     * When the user clicks next the state machine will move onto it's next state
-     * Each state will render information about itself
-     * An AI test user should be able to drive state changes from day one.
-     */
-
     public enum GameState
     {
         Setup,

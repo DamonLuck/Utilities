@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DL.ECS.Team.Scenarios.Systems;
+using System.Collections.Generic;
 
 namespace DL.ECS.Team.Scenarios
 {
@@ -7,7 +8,6 @@ namespace DL.ECS.Team.Scenarios
     {
         static void Main(string[] args)
         {
-
         }
 
     }
