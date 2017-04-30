@@ -64,10 +64,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemNotificationExtensions.cs" />
-    <Compile Include="Systems\FixtureSystem.cs" />
     <Compile Include="Systems\GameStateSystem.cs" />
-    <Compile Include="Systems\MatchSystem.cs" />
-    <Compile Include="Systems\ResultSystem.cs" />
     <Compile Include="Systems\SetupSystem.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,18 @@ namespace DL.ECS.Core
             }
         }
 
+        internal IRelation GetRelationByPrimaryKey(EntityId entityId)
+        {
+            foreach(var relation in _relations.Values)
+            {
+                Set set = relation as Set;
+                if (set != null && set.PrimaryEntityId == entityId)
+                    return set;
+            }
+
+            return null;
+        }
+
         internal IRelation GetRelationById(RelationId relationid)
             => _relations[relationid];
 

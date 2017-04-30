@@ -12,7 +12,7 @@ namespace DL.ECS.Team.Scenarios.Components
 
         public override IComponent Build()
         {
-            return new PlayerComponent() { Name = Faker.Name.FullName() };
+            return new TeamComponent() { Name = Faker.Name.FullName() };
         }
     }
 }

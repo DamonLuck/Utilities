@@ -1,6 +1,8 @@
 ﻿using DL.ECS.Core;
 using DL.ECS.Core.Systems;
 using DL.ECS.Team.Scenarios.Domain;
+using System;
+using System.Collections.Generic;
 
 namespace DL.ECS.Team.Scenarios.Systems
 {
@@ -14,53 +16,58 @@ namespace DL.ECS.Team.Scenarios.Systems
 
     public class GameStateSystem : ISystem
     {
-        private FixtureSystem _fixtureSystem;
-        private MatchSystem _matchSystem;
-        private ResultSystem _resultSystem;
         private GameState _gameState;
         private SetupSystem _setupSystem;
-
+        private DomainContext _context;
         public GameStateSystem(DomainContext context)
         {
+            _context = context;
             _setupSystem = new SetupSystem(context);
-            _fixtureSystem = new FixtureSystem(context);
-            _matchSystem = new MatchSystem(context);
-            _resultSystem = new ResultSystem(context);
             _gameState = GameState.Setup;
+            _setupSystem.Execute();
+        }
+
+        public void Execute(string input)
+        {
+            if(input == "l")
+            {
+                // list leagues
+                WriteEntitiesToConsole(_context.League.GetAll());
+                return;
+            }
+            else if(input == "t")
+            {
+                // list teams
+                WriteEntitiesToConsole(_context.Teams.GetAll());
+                return;
+            }
+            int entityId = -1;
+            int.TryParse(input, out entityId);
+
+            if(entityId != -1)
+            {
+                // Check set primary keys first
+                IRelation relation = _context.GetRelationByPrimaryKey(new EntityId(entityId));
+                if(relation != null)
+                {
+                    WriteEntitiesToConsole(relation.GetEntities());
+                }
+                else
+                {
+                    Console.WriteLine("Unknown Id");
+                }
+            }
         }
 
         public void Execute()
         {
-            switch (_gameState)
-            {
-                case GameState.Setup:
-                    {
-                        _setupSystem.Execute();
-                        _gameState = GameState.Fixture;
-                        break;
-                    }
+            throw new NotImplementedException();
+        }
 
-                case GameState.Fixture:
-                    {
-                        _fixtureSystem.Execute();
-                        _gameState = GameState.Match;
-                        return;
-                    }
-
-                case GameState.Match:
-                    {
-                        _matchSystem.Execute();
-                        _gameState = GameState.Result;
-                        return;
-                    }
-
-                default:
-                    {
-                        _resultSystem.Execute();
-                        _gameState = GameState.Fixture;
-                        break;
-                    }
-            }
+        private void WriteEntitiesToConsole(IEnumerable<IEntity> entities)
+        {
+            foreach (var entity in entities)
+                Console.WriteLine(entity);
         }
     }
 }

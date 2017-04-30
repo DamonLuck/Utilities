@@ -15,8 +15,15 @@ namespace DL.ECS.Team.Scenarios
                 new GameStateSystem(new DomainContext(factory));
 
             Console.WriteLine("Enter q to quit. Return to execute next step");
-            while(Console.ReadLine() != "q")
-                gameStateSystem.Execute();
+            Console.WriteLine("Enter l to list leagues and t to list teams");
+            Console.WriteLine("Enter entity id to list contents of entities set");
+            string inputString = "";
+            inputString = Console.ReadLine();
+            while (inputString != "q")
+            {
+                gameStateSystem.Execute(inputString);
+                inputString = Console.ReadLine();
+            }
         }
 
     }

@@ -31,6 +31,9 @@ namespace DL.ECS.Core
             => _componentManager.GetEntities(componentId);
         public IEnumerable<IEntity> GetAllEntities() => _entities.Values;
 
+        public IRelation GetRelationByPrimaryKey(EntityId entityId)
+            => _relationManager.GetRelationByPrimaryKey(entityId);
+
         public IRelation GetRelationByRelationid(RelationId relationId)
             => _relationManager.GetRelationById(relationId);
 
