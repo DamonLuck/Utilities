@@ -39,6 +39,12 @@ namespace DL.ECS.Core
         {
             if (_entityRelations.ContainsKey(entityId))
             {
+                Set set = _relations[relationId] as Set;
+                if(set != null)
+                {
+                    set.RemovePrimaryEntityId(entityId);
+                }
+
                 _entityRelations[entityId].Remove(relationId);
                 _relationEntities[relationId].Remove(entityId);
             }
@@ -60,12 +66,12 @@ namespace DL.ECS.Core
         {
             if (_entityRelations.ContainsKey(entity.EntityId))
             {
-                IEnumerable<RelationId> entitiesToClean =
+                IEnumerable<RelationId> relationsToClean =
                     _entityRelations[entity.EntityId]
                         .Select(x => x)
                         .Distinct();
 
-                entitiesToClean.ToList().ForEach(x =>RemoveEntity(x, entity.EntityId));
+                relationsToClean.ToList().ForEach(x =>RemoveEntity(x, entity.EntityId));
                 _entityRelations.Remove(entity.EntityId);
             }
         }

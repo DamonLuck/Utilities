@@ -25,7 +25,7 @@ namespace DL.ECS.Core
             return newEntity;
         }
 
-        public IRelation CreateSet() => Set.Create(_relationManager);
+        public ISet CreateSet() => Set.Create(_relationManager);
 
         public IEnumerable<IEntity> GetEntitiesByComponent(ComponentId componentId)
             => _componentManager.GetEntities(componentId);

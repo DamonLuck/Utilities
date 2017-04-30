@@ -1,5 +1,6 @@
 ﻿using DL.ECS.Core;
 using DL.ECS.Core.Systems;
+using DL.ECS.Team.Scenarios.Domain;
 
 namespace DL.ECS.Team.Scenarios.Systems
 {
@@ -19,7 +20,7 @@ namespace DL.ECS.Team.Scenarios.Systems
         private GameState _gameState;
         private SetupSystem _setupSystem;
 
-        public GameStateSystem(Context context)
+        public GameStateSystem(DomainContext context)
         {
             _setupSystem = new SetupSystem(context);
             _fixtureSystem = new FixtureSystem(context);

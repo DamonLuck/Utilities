@@ -9,7 +9,7 @@ namespace DL.ECS.Team.Scenarios.Components
 
         public ComponentFactory()
         {
-            TotalComponentCount = 2;
+            TotalComponentCount = 3;
             ComponentIds = new ComponentIds();
         }
 
@@ -21,6 +21,11 @@ namespace DL.ECS.Team.Scenarios.Components
         public TeamComponentBuilder TeamComponentBuilder()
         {
             return new TeamComponentBuilder(ComponentIds.TeamComponentId);
+        }
+
+        public LeagueComponentBuilder LeagueComponentBuilder()
+        {
+            return new LeagueComponentBuilder(ComponentIds.LeagueComponentId);
         }
     }
 }

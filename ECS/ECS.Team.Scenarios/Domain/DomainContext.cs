@@ -8,15 +8,15 @@ namespace DL.ECS.Team.Scenarios.Domain
         public DomainContext(ComponentFactory componentFactory)
             :base(componentFactory.TotalComponentCount)
         {
-            Player = new Player(this, componentFactory);
-            Team = new Team(this, componentFactory);
+            Players = new Players(this, componentFactory);
+            Teams = new Teams(this, componentFactory);
             League = new League(this, componentFactory);
             Competition = new Competition(this, componentFactory);
         }
 
-        public Player Player { get; }
+        public Players Players { get; }
 
-        public Team Team { get; }
+        public Teams Teams { get; }
 
         public League League { get; }
 
