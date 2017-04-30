@@ -3,7 +3,7 @@
 
     public class EntityAlreadyHasComponentException : ECSException
     {
-        public EntityAlreadyHasComponentException(IEntity entity, IComponent component, int index)
+        public EntityAlreadyHasComponentException(IEntity entity, IComponent component, long index)
         {
             Entity = entity;
             Component = component;
@@ -14,6 +14,6 @@
         public new string Message { get; }
         public IEntity Entity { get; }
         public IComponent Component { get; }
-        public int Index { get; }
+        public long Index { get; }
     }
 }

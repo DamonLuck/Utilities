@@ -1,4 +1,5 @@
-﻿using DL.ECS.Core.Exceptions;
+﻿using DL.ECS.Core.Components;
+using DL.ECS.Core.Exceptions;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -13,7 +14,7 @@ namespace DL.ECS.Core.Tests
         public void AddComponent_ForGet_ReturnsComponent()
         {
             IComponent component = Substitute.For<IComponent>();
-            int index = _totalComponents - 1;
+            ComponentId index = new ComponentId(_totalComponents - 1);
 
             IEntity entity = CreateSut();
             entity.AddComponent(component, index);
@@ -25,7 +26,7 @@ namespace DL.ECS.Core.Tests
         public void RemoveComponent_ForGet_ReturnsNull()
         {
             IComponent component = Substitute.For<IComponent>();
-            int index = _totalComponents - 1;
+            ComponentId index = new ComponentId(_totalComponents - 1);
 
             IEntity entity = CreateSut();
             entity.AddComponent(component, index);
@@ -38,7 +39,7 @@ namespace DL.ECS.Core.Tests
         public void AddComponent_Twice_ThrowsException()
         {
             IComponent component = Substitute.For<IComponent>();
-            int index = _totalComponents - 1;
+            ComponentId index = new ComponentId(_totalComponents - 1);
 
             IEntity entity = CreateSut();
             entity.AddComponent(component, index);
@@ -51,7 +52,7 @@ namespace DL.ECS.Core.Tests
         public void RemoveComponent_Twice_ThrowsException()
         {
             IComponent component = Substitute.For<IComponent>();
-            int index = _totalComponents - 1;
+            ComponentId index = new ComponentId(_totalComponents - 1);
 
             IEntity entity = CreateSut();
             entity.AddComponent(component, index);

@@ -2,7 +2,7 @@
 {
     public class EntityDoesNotHaveComponentException : ECSException
     {
-        public EntityDoesNotHaveComponentException(IEntity entity, int index)
+        public EntityDoesNotHaveComponentException(IEntity entity, long index)
         {
             Entity = entity;
             Index = index;
@@ -11,6 +11,6 @@
 
         public new string Message { get; }
         public IEntity Entity { get; }
-        public int Index { get; }
+        public long Index { get; }
     }
 }

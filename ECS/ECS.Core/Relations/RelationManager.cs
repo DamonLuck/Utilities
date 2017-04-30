@@ -5,15 +5,12 @@ namespace DL.ECS.Core
 {
     internal class RelationManager
     {
-        // EntityId / RelationId
         private Dictionary<EntityId, HashSet<RelationId>> _entityRelations =
             new Dictionary<EntityId, HashSet<RelationId>>();
 
-        // RelationId / EntityId
         private Dictionary<RelationId, HashSet<EntityId>> _relationEntities =
             new Dictionary<RelationId, HashSet<EntityId>>();
 
-        // RelationId
         private Dictionary<RelationId, IRelation> _relations =
             new Dictionary<RelationId, IRelation>();
         private readonly Context _context;
@@ -46,6 +43,9 @@ namespace DL.ECS.Core
                 _relationEntities[relationId].Remove(entityId);
             }
         }
+
+        internal IRelation GetRelationById(RelationId relationid)
+            => _relations[relationid];
 
         internal IEnumerable<IEntity> GetEntities(RelationId relationid)
         {

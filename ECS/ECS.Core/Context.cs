@@ -1,4 +1,5 @@
-﻿using DL.ECS.Core.Exceptions;
+﻿using DL.ECS.Core.Components;
+using DL.ECS.Core.Exceptions;
 using System.Collections.Generic;
 
 namespace DL.ECS.Core
@@ -6,6 +7,7 @@ namespace DL.ECS.Core
     public class Context
     {
         private RelationManager _relationManager;
+        private ComponentManager _componentManager;
         private Dictionary<EntityId, Entity> _entities = new Dictionary<EntityId, Entity>();
         private readonly int _totalComponents;
 
@@ -13,26 +15,24 @@ namespace DL.ECS.Core
         {
             _totalComponents = totalComponents;
             _relationManager = new RelationManager(this);
+            _componentManager = new ComponentManager(this, totalComponents);
         }
 
         public IEntity Create()
         {
-            Entity newEntity = Entity.Create(_totalComponents);
+            Entity newEntity = Entity.Create(_totalComponents, _componentManager);
             _entities.Add(newEntity.EntityId, newEntity);
             return newEntity;
         }
 
-        public IRelation CreateSet()
-        {
-            IRelation set = Set.Create(_relationManager);
-            _relationManager.RegisterRelation(set);
-            return set;
-        }
+        public IRelation CreateSet() => Set.Create(_relationManager);
 
-        public IEnumerable<IEntity> GetEntities() => _entities.Values;
+        public IEnumerable<IEntity> GetEntitiesByComponent(ComponentId componentId)
+            => _componentManager.GetEntities(componentId);
+        public IEnumerable<IEntity> GetAllEntities() => _entities.Values;
 
-        public IEnumerable<IEntity> GetSetEntities(RelationId relationId) 
-            => _relationManager.GetEntities(relationId);
+        public IRelation GetRelationByRelationid(RelationId relationId)
+            => _relationManager.GetRelationById(relationId);
 
         internal IEntity GetEntity(EntityId index)
         {
@@ -47,6 +47,7 @@ namespace DL.ECS.Core
 
             Entity entityToDestroy = _entities[entity.EntityId];
             _relationManager.DestroyEntityRelations(entity);
+            _componentManager.DestroyComponentRelations(entity);
             _entities.Remove(entity.EntityId);
             entityToDestroy.Release();
         }

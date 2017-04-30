@@ -17,6 +17,7 @@ namespace DL.ECS.Core
             Set set = _objectPool.Create();
             set._relationManager = relationManager;
             set.RelationId = new RelationId(_currentId++);
+            set._relationManager.RegisterRelation(set);
             return set;
         }
 

@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Faker.NET4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Faker.Net.1.0.3\lib\net40\Faker.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -67,7 +70,10 @@
     <Compile Include="EntityComponentTest.cs" />
     <Compile Include="EntityTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenario\S1TeamAndPlayerCreation.cs" />
     <Compile Include="SetTests.cs" />
+    <Compile Include="TestComponents\PlayerComponent.cs" />
+    <Compile Include="TestComponents\TeamComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

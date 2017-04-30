@@ -2,6 +2,7 @@
 using DL.ECS.Core.Exceptions;
 using System;
 using System.Text;
+using DL.ECS.Core.Components;
 
 namespace DL.ECS.Core
 {
@@ -39,9 +40,9 @@ namespace DL.ECS.Core
         EntityId EntityId { get; }
         int TotalComponents { get; }
 
-        IComponent GetComponent(int index);
-        IEntity AddComponent(IComponent component, int index);
-        IEntity RemoveComponent(int index);
+        IComponent GetComponent(ComponentId componentId);
+        IEntity AddComponent(IComponent component, ComponentId componentId);
+        IEntity RemoveComponent(ComponentId componentId);
     }
 
     internal class Entity : PooledObject<Entity>, IEntity
@@ -50,33 +51,35 @@ namespace DL.ECS.Core
         public EntityId EntityId { get; private set; }
         public int TotalComponents { get; private set; }
         private IComponent[] _components;
-        
-        internal static Entity Create(int totalComponents)
+        private ComponentManager _componentManager;
+        internal static Entity Create(int totalComponents, ComponentManager componentManager)
         {
             Entity entity = _objectPool.Create();
             entity.EntityId = new EntityId(_currentId++);
             entity.TotalComponents = totalComponents;
             entity._components = new IComponent[totalComponents];
+            entity._componentManager = componentManager;
             return entity;
         }
 
-        public IComponent GetComponent(int index) => _components[index];
+        public IComponent GetComponent(ComponentId componentId) => _components[componentId.Id];
 
-        public IEntity AddComponent(IComponent component, int index)
+        public IEntity AddComponent(IComponent component, ComponentId componentId)
         {
-            if (_components[index] != null)
-                throw new EntityAlreadyHasComponentException(this, component, index);
+            if (_components[componentId.Id] != null)
+                throw new EntityAlreadyHasComponentException(this, component, componentId.Id);
 
-            _components[index] = component;
+            _components[componentId.Id] = component;
+            _componentManager.AddComponent(componentId, this.EntityId);
             return this;
         }
 
-        public IEntity RemoveComponent(int index)
+        public IEntity RemoveComponent(ComponentId componentId)
         {
-            if (_components[index] == null)
-                throw new EntityDoesNotHaveComponentException(this, index);
+            if (_components[componentId.Id] == null)
+                throw new EntityDoesNotHaveComponentException(this, componentId.Id);
 
-            _components[index] = null;
+            _components[componentId.Id] = null;
             return this;
         }
 

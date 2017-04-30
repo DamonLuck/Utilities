@@ -1,4 +1,5 @@
-﻿using DL.ECS.Core.Exceptions;
+﻿using DL.ECS.Core.Components;
+using DL.ECS.Core.Exceptions;
 using FluentAssertions;
 using Xunit;
 
@@ -65,9 +66,9 @@ namespace DL.ECS.Core.Tests
 
             entity.TotalComponents.Should().Be(_totalComponents);
 
-            for (int index = 0; index < _totalComponents; index++)
+            for (long index = 0; index < _totalComponents; index++)
             {
-                entity.GetComponent(index).Should().BeNull();
+                entity.GetComponent(new ComponentId(index)).Should().BeNull();
             }
         }
 
