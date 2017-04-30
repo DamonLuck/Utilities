@@ -79,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\DL.Infrastructure\DL.Infrastructure.csproj">
+      <Project>{6c1aa645-b3f7-4f27-aeb8-5b858cf44999}</Project>
+      <Name>DL.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ObjectPool\DL.ObjectPool\DL.ObjectPool.csproj">
       <Project>{7bcdbdd5-c27c-4e83-a27f-b37267d02b8e}</Project>
       <Name>DL.ObjectPool</Name>
