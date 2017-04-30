@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DL.ECS.Core
@@ -50,16 +51,9 @@ namespace DL.ECS.Core
             }
         }
 
-        internal IRelation GetRelationByPrimaryKey(EntityId entityId)
+        internal IEnumerable<IRelation> GetRelationsBy(Func<IRelation, bool> predicate)
         {
-            foreach(var relation in _relations.Values)
-            {
-                Set set = relation as Set;
-                if (set != null && set.PrimaryEntityId == entityId)
-                    return set;
-            }
-
-            return null;
+            return _relations.Values.Where(x => predicate(x));
         }
 
         internal IRelation GetRelationById(RelationId relationid)

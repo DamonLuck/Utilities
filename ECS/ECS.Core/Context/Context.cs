@@ -1,5 +1,6 @@
 ﻿using DL.ECS.Core.Components;
 using DL.ECS.Core.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace DL.ECS.Core
@@ -27,15 +28,12 @@ namespace DL.ECS.Core
 
         public ISet CreateSet() => Set.Create(_relationManager);
 
+        public IEnumerable<IRelation> GetRelationsBy(Func<IRelation, bool> predicate)
+            => _relationManager.GetRelationsBy(predicate);
+
         public IEnumerable<IEntity> GetEntitiesByComponent(ComponentId componentId)
             => _componentManager.GetEntities(componentId);
         public IEnumerable<IEntity> GetAllEntities() => _entities.Values;
-
-        public IRelation GetRelationByPrimaryKey(EntityId entityId)
-            => _relationManager.GetRelationByPrimaryKey(entityId);
-
-        public IRelation GetRelationByRelationid(RelationId relationId)
-            => _relationManager.GetRelationById(relationId);
 
         internal IEntity GetEntity(EntityId index)
         {

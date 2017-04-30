@@ -75,8 +75,8 @@ namespace DL.ECS.Core.Tests
             Context sut = CreateSut();
             IEntity entity1 = sut.Create();
             IEntity entity2 = sut.Create();
-            IRelation set = sut.CreateSet()
-                .AddPrimaryEntity(entity1)
+            ISet set = sut.CreateSet();
+            set.AddPrimaryEntity(entity1)
                 .AddEntity(entity2);
 
             set.GetEntities().Should().BeEquivalentTo(new[] { entity1, entity2 });
@@ -89,8 +89,8 @@ namespace DL.ECS.Core.Tests
             Context sut = CreateSut();
             IEntity entity1 = sut.Create();
             IEntity entity2 = sut.Create();
-            IRelation set = sut.CreateSet()
-                .AddPrimaryEntity(entity1)
+            ISet set = sut.CreateSet();
+            set.AddPrimaryEntity(entity1)
                 .AddPrimaryEntity(entity2);
 
             set.GetEntities().Should().BeEquivalentTo(new[] { entity1, entity2 });
@@ -102,8 +102,8 @@ namespace DL.ECS.Core.Tests
         {
             Context sut = CreateSut();
             IEntity entity1 = sut.Create();
-            IRelation set = sut.CreateSet()
-                .AddPrimaryEntity(entity1);
+            ISet set = sut.CreateSet();
+            set.AddPrimaryEntity(entity1);
 
             sut.Destroy(entity1);
 

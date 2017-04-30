@@ -3,6 +3,7 @@ using DL.ECS.Core.Systems;
 using DL.ECS.Team.Scenarios.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DL.ECS.Team.Scenarios.Systems
 {
@@ -46,16 +47,10 @@ namespace DL.ECS.Team.Scenarios.Systems
 
             if(entityId != -1)
             {
-                // Check set primary keys first
-                IRelation relation = _context.GetRelationByPrimaryKey(new EntityId(entityId));
-                if(relation != null)
-                {
-                    WriteEntitiesToConsole(relation.GetEntities());
-                }
-                else
-                {
-                    Console.WriteLine("Unknown Id");
-                }
+                IEnumerable<IRelation> relations = 
+                    _context.GetRelationsBy(x => x is ISet 
+                        && ((ISet)x).PrimaryEntityId.Id == entityId);
+                relations.ToList().ForEach(x=> WriteEntitiesToConsole(x.GetEntities()));
             }
         }
 
