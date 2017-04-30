@@ -54,7 +54,6 @@
     <Compile Include="Systems\MatchSystem.cs" />
     <Compile Include="Systems\ResultSystem.cs" />
     <Compile Include="Systems\SetupSystem.cs" />
-    <Compile Include="Tests\TeamTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
