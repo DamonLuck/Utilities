@@ -53,6 +53,7 @@
     <Compile Include="Components\Team.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemNotificationExtensions.cs" />
     <Compile Include="Systems\FixtureSystem.cs" />
     <Compile Include="Systems\GameStateSystem.cs" />
     <Compile Include="Systems\MatchSystem.cs" />

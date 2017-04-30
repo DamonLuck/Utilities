@@ -1,19 +1,16 @@
-﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DL.Infrastructure
+﻿namespace DL.Infrastructure
 {
     public static class AmbientLogger
     {
-        public static void Setup()
+        private static ISystemNotification _systemNotification;
+        public static ISystemNotification SystemNotification
         {
-            SystemNotification = new SystemNotification();
+            get
+            {
+                if(_systemNotification == null)
+                    _systemNotification = new SystemNotification();
+                return _systemNotification;
+            }
         }
-
-        public static ISystemNotification SystemNotification { get; private set; }
     }
 }

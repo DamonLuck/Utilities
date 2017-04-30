@@ -25,7 +25,7 @@ namespace DL.ECS.Team.Scenarios.Systems
             _fixtureSystem = new FixtureSystem(context);
             _matchSystem = new MatchSystem(context);
             _resultSystem = new ResultSystem(context);
-            _gameState = GameState.Fixture;
+            _gameState = GameState.Setup;
         }
 
         public void Execute()

@@ -5,6 +5,7 @@ using System.Linq;
 using Faker;
 using System.Collections.Generic;
 using FluentAssertions;
+using DL.Infrastructure;
 
 namespace DL.ECS.Core.Tests.Scenario
 {
