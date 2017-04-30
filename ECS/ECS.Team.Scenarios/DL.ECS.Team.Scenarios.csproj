@@ -49,8 +49,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\ComponentFactory.cs" />
-    <Compile Include="Components\Player.cs" />
-    <Compile Include="Components\Team.cs" />
+    <Compile Include="Components\ComponentIds.cs" />
+    <Compile Include="Components\PlayerComponent.cs" />
+    <Compile Include="Components\Builders\PlayerComponentBuilder.cs" />
+    <Compile Include="Components\TeamComponent.cs" />
+    <Compile Include="Components\Builders\TeamComponentBuilder.cs" />
+    <Compile Include="Domain\Competition.cs" />
+    <Compile Include="Domain\DomainContext.cs" />
+    <Compile Include="Domain\League.cs" />
+    <Compile Include="Domain\Player.cs" />
+    <Compile Include="Domain\Team.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemNotificationExtensions.cs" />
@@ -74,5 +82,6 @@
       <Name>DL.ECS.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

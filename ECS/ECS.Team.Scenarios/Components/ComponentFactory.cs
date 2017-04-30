@@ -2,25 +2,25 @@
 
 namespace DL.ECS.Team.Scenarios.Components
 {
-    public static class ComponentFactory
+    public class ComponentFactory
     {
-        public static Context CreateContext()
+        public int TotalComponentCount { get; }
+        public ComponentIds ComponentIds { get; }
+
+        public ComponentFactory()
         {
-            return new Context(TotalComponentCount);
+            TotalComponentCount = 2;
+            ComponentIds = new ComponentIds();
         }
 
-        public const int PlayerComponentIndex = 0;
-        public const int TeamComponentIndex = 1;
-        public const int TotalComponentCount = 2;
-
-        public static PlayerComponent CreatePlayerComponent()
+        public PlayerComponentBuilder PlayerComponentBuilder()
         {
-            return new PlayerComponent() { Name = Faker.Name.FullName() };
+            return new PlayerComponentBuilder(ComponentIds.PlayerComponentId);
         }
 
-        public static TeamComponent CreateTeamComponent()
+        public TeamComponentBuilder TeamComponentBuilder()
         {
-            return new TeamComponent() { Name = Faker.Address.City() };
+            return new TeamComponentBuilder(ComponentIds.TeamComponentId);
         }
     }
 }

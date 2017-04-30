@@ -1,4 +1,5 @@
-﻿using DL.ECS.Core.Components;
+﻿using System;
+using DL.ECS.Core.Components;
 using DL.ECS.Core.Exceptions;
 using FluentAssertions;
 using NSubstitute;
@@ -15,9 +16,9 @@ namespace DL.ECS.Core.Tests
         {
             IComponent component = Substitute.For<IComponent>();
             ComponentId index = new ComponentId(_totalComponents - 1);
-
+            IComponentBuilder builder = new TestComponentBuilder(index, component);
             IEntity entity = CreateSut();
-            entity.AddComponent(component, index);
+            entity.AddComponent(builder);
 
             entity.GetComponent(index).Should().Be(component);
         }
@@ -27,9 +28,10 @@ namespace DL.ECS.Core.Tests
         {
             IComponent component = Substitute.For<IComponent>();
             ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
-            entity.AddComponent(component, index);
+            entity.AddComponent(builder);
             entity.RemoveComponent(index);
 
             entity.GetComponent(index).Should().Be(null);
@@ -40,12 +42,13 @@ namespace DL.ECS.Core.Tests
         {
             IComponent component = Substitute.For<IComponent>();
             ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
-            entity.AddComponent(component, index);
+            entity.AddComponent(builder);
 
             Assert.Throws(typeof(EntityAlreadyHasComponentException),
-                () => entity.AddComponent(component, index));
+                () => entity.AddComponent(builder));
         }
 
         [Fact]
@@ -53,9 +56,10 @@ namespace DL.ECS.Core.Tests
         {
             IComponent component = Substitute.For<IComponent>();
             ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
-            entity.AddComponent(component, index);
+            entity.AddComponent(builder);
             entity.RemoveComponent(index);
 
             Assert.Throws(typeof(EntityDoesNotHaveComponentException),

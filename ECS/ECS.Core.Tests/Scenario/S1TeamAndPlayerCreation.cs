@@ -76,13 +76,15 @@ namespace DL.ECS.Core.Tests.Scenario
         private IEntity AddPlayer(Context context, ComponentId index)
         {
             PlayerComponent player = new PlayerComponent() { Name = Name.FullName() };
-            return context.Create().AddComponent(player, index);
+            IComponentBuilder builder = new TestComponentBuilder(index, player);
+            return context.Create().AddComponent(builder);
         }
 
         private IEntity AddTeam(Context context, ComponentId index)
         {
             TeamComponent team = new TeamComponent() { Name = Address.City() };
-            return context.Create().AddComponent(team, index);
+            IComponentBuilder builder = new TestComponentBuilder(index, team);
+            return context.Create().AddComponent(builder);
         }
     }
 }

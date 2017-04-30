@@ -1,8 +1,7 @@
 ﻿using DL.ECS.Team.Scenarios.Components;
+using DL.ECS.Team.Scenarios.Domain;
 using DL.ECS.Team.Scenarios.Systems;
-using DL.Infrastructure;
 using System;
-using System.Collections.Generic;
 
 namespace DL.ECS.Team.Scenarios
 {
@@ -11,9 +10,9 @@ namespace DL.ECS.Team.Scenarios
     {
         static void Main(string[] args)
         {
+            ComponentFactory factory = new ComponentFactory();
             GameStateSystem gameStateSystem =
-                new GameStateSystem(
-                    ComponentFactory.CreateContext());
+                new GameStateSystem(new DomainContext(factory));
 
             Console.WriteLine("Enter q to quit. Return to execute next step");
             while(Console.ReadLine() != "q")
