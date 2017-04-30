@@ -27,7 +27,7 @@ namespace DL.ECS.Core
             _relationEntities.Add(relation.RelationId, new HashSet<EntityId>());
         }
 
-        public void AddEntity(RelationId relationId, EntityId entityId)
+        internal void AddEntity(RelationId relationId, EntityId entityId)
         {
             if (!_entityRelations.ContainsKey(entityId))
                 _entityRelations.Add(entityId, new HashSet<RelationId>());
@@ -36,16 +36,10 @@ namespace DL.ECS.Core
             _relationEntities[relationId].Add(entityId);
         }
 
-        public void RemoveEntity(RelationId relationId, EntityId entityId)
+        internal void RemoveEntity(RelationId relationId, EntityId entityId)
         {
             if (_entityRelations.ContainsKey(entityId))
             {
-                Set set = _relations[relationId] as Set;
-                if(set != null)
-                {
-                    set.RemovePrimaryEntityId(entityId);
-                }
-
                 _entityRelations[entityId].Remove(relationId);
                 _relationEntities[relationId].Remove(entityId);
             }
@@ -76,8 +70,7 @@ namespace DL.ECS.Core
                     _entityRelations[entity.EntityId]
                         .Select(x => x)
                         .Distinct();
-
-                relationsToClean.ToList().ForEach(x =>RemoveEntity(x, entity.EntityId));
+                relationsToClean.ToList().ForEach(x => _relations[x].RemoveEntity(entity.EntityId));
                 _entityRelations.Remove(entity.EntityId);
             }
         }

@@ -50,7 +50,7 @@ namespace DL.ECS.Core.Tests
 
             IRelation set = sut.CreateSet()
                 .AddEntities(new[] { entity1, entity2 })
-                .RemoveEntity(entity1);
+                .RemoveEntity(entity1.EntityId);
 
             set.GetEntities().Should().BeEquivalentTo(new[] { entity2 });
         }

@@ -45,14 +45,14 @@ namespace DL.ECS.Core
 
         public IEnumerable<IEntity> GetEntities() => _relationManager.GetEntities(RelationId);
 
-        public IRelation RemoveEntity(IEntity entity)
+        public IRelation RemoveEntity(EntityId entityId)
         {
-            _relationManager.RemoveEntity(RelationId, entity.EntityId);
-            RemovePrimaryEntityId(entity.EntityId);
+            _relationManager.RemoveEntity(RelationId, entityId);
+            RemovePrimaryEntityId(entityId);
             return this;
         }
 
-        public void RemovePrimaryEntityId(EntityId entityId)
+        private void RemovePrimaryEntityId(EntityId entityId)
         {
             if (PrimaryEntityId.Id == entityId.Id)
             {
@@ -60,9 +60,9 @@ namespace DL.ECS.Core
             }
         }
 
-        public IRelation RemoveEntities(IEnumerable<IEntity> entities)
+        public IRelation RemoveEntities(IEnumerable<EntityId> entityIds)
         {
-            entities.ToList().ForEach(entity => RemoveEntity(entity));
+            entityIds.ToList().ForEach(entityId => RemoveEntity(entityId));
             return this;
         }
     }

@@ -7,8 +7,8 @@ namespace DL.ECS.Core
         RelationId RelationId { get; }
         IRelation AddEntity(IEntity entity);
         IRelation AddEntities(IEnumerable<IEntity> entities);
-        IRelation RemoveEntity(IEntity entity);
-        IRelation RemoveEntities(IEnumerable<IEntity> entities);
+        IRelation RemoveEntity(EntityId entityId);
+        IRelation RemoveEntities(IEnumerable<EntityId> entityIds);
         IEnumerable<IEntity> GetEntities();
     }
 }
