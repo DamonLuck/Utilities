@@ -29,7 +29,7 @@ namespace DL.ECS.Team.Scenarios.Domain
                 _componentFactory.ComponentIds.TeamComponentId);
             for (int i = 0; i < numberOfLeagues; i++)
             { 
-                IEntity league = _context.Create().AddComponent(builder);
+                IEntity league = _context.Create().AddComponent<LeagueComponent>(builder);
                 _context.CreateSet()
                     .AddPrimaryEntity(league)
                     .AddEntities(teams.Take(numberOfTeamsPerLeague));

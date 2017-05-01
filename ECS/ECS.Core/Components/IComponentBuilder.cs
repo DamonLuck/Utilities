@@ -5,6 +5,5 @@ namespace DL.ECS.Core
     public interface IComponentBuilder
     {
         IComponent Build();
-        ComponentId Index { get;}
     }
 }

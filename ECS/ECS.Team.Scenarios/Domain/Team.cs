@@ -29,7 +29,7 @@ namespace DL.ECS.Team.Scenarios.Domain
                 _componentFactory.ComponentIds.PlayerComponentId);
             for (int i = 0; i < numberOfTeams; i++)
             { 
-                IEntity team = _context.Create().AddComponent(builder);
+                IEntity team = _context.Create().AddComponent<TeamComponent>(builder);
                 _context.CreateSet()
                     .AddPrimaryEntity(team)
                     .AddEntities(players.Take(playersPerTeam));
@@ -47,7 +47,7 @@ namespace DL.ECS.Team.Scenarios.Domain
             {
                 teamEntity.RemoveComponent(_componentFactory.ComponentIds.PlayerCaptainComponentId);
                 if (teamEntity.EntityId == playerId)
-                    teamEntity.AddComponent(playerCaptainBuilder);
+                    teamEntity.AddComponent<PlayerCaptainComponent>(playerCaptainBuilder);
             }
         }
 

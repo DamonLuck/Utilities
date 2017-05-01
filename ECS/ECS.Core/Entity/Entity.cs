@@ -13,7 +13,8 @@ namespace DL.ECS.Core
         int TotalComponents { get; }
 
         TComponent GetComponent<TComponent>() where TComponent : IComponent;
-        IEntity AddComponent(IComponentBuilder componentBuilder);
+        IEntity AddComponent<TComponent>(IComponentBuilder componentBuilder)
+             where TComponent : IComponent;
         IEntity RemoveComponent(ComponentId componentId);
     }
 
@@ -42,16 +43,17 @@ namespace DL.ECS.Core
             return (TComponent)_components[index];
         }
 
-        public IEntity AddComponent(IComponentBuilder componentBuilder)
+        public IEntity AddComponent<TComponent>(IComponentBuilder componentBuilder)
+             where TComponent : IComponent
         {
-            long componentIndex = componentBuilder.Index.Id;
+            long componentIndex = _componentManager.GetId<TComponent>().Id;
             if (_components[componentIndex] != null)
                 throw new EntityAlreadyHasComponentException(this, 
                     componentBuilder.Build(), 
                     componentIndex);
 
             _components[componentIndex] = componentBuilder.Build();
-            _componentManager.AddComponent(componentBuilder.Index, this.EntityId);
+            _componentManager.AddComponent(new ComponentId(componentIndex), this.EntityId);
             return this;
         }
 

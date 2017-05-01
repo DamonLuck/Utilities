@@ -27,7 +27,7 @@ namespace DL.ECS.Team.Scenarios.Domain
             IComponentBuilder builder = _componentFactory.PlayerComponentBuilder();
 
             for(int i=0; i< numberOfPlayers; i++)
-                _context.Create().AddComponent(builder);
+                _context.Create().AddComponent<PlayerComponent>(builder);
         }
 
         public IEnumerable<PlayerModel> GetAll(long teamId)

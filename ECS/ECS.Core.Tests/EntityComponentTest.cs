@@ -24,7 +24,7 @@ namespace DL.ECS.Core.Tests
             ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
             IEntity entity = CreateSut();
-            entity.AddComponent(builder);
+            entity.AddComponent<TeamComponent>(builder);
 
             entity.GetComponent<TeamComponent>().Should().Be(component);
         }
@@ -32,15 +32,15 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void RemoveComponent_ForGet_ReturnsNull()
         {
-            IComponent component = new PlayerComponent();
+            IComponent component = new TeamComponent();
             ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
-            entity.AddComponent(builder);
+            entity.AddComponent<TeamComponent>(builder);
             entity.RemoveComponent(index);
 
-            entity.GetComponent<PlayerComponent>().Should().Be(null);
+            entity.GetComponent<TeamComponent>().Should().Be(null);
         }
 
         [Fact]
@@ -51,21 +51,21 @@ namespace DL.ECS.Core.Tests
             IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
-            entity.AddComponent(builder);
+            entity.AddComponent<PlayerComponent>(builder);
 
             Assert.Throws(typeof(EntityAlreadyHasComponentException),
-                () => entity.AddComponent(builder));
+                () => entity.AddComponent<PlayerComponent>(builder));
         }
 
         [Fact]
         public void RemoveComponent_Twice_ThrowsException()
         {
-            IComponent component = new PlayerComponent();
+            IComponent component = new TeamComponent();
             ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
-            entity.AddComponent(builder);
+            entity.AddComponent<TeamComponent>(builder);
             entity.RemoveComponent(index);
 
             Assert.Throws(typeof(EntityDoesNotHaveComponentException),
