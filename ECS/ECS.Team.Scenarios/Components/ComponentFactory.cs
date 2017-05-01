@@ -8,7 +8,7 @@ namespace DL.ECS.Team.Scenarios.Components
 {
     public class ComponentFactory
     {
-        public ComponentIds ComponentIds { get; }
+        private ComponentIds ComponentIds { get; }
 
         public ComponentFactory()
         {
@@ -24,22 +24,22 @@ namespace DL.ECS.Team.Scenarios.Components
 
         public PlayerComponentBuilder PlayerComponentBuilder()
         {
-            return new PlayerComponentBuilder(ComponentIds.PlayerComponentId);
+            return new PlayerComponentBuilder();
         }
 
         public PlayerCaptainComponentBuilder PlayerCaptainComponentBuilder()
         {
-            return new PlayerCaptainComponentBuilder(ComponentIds.PlayerCaptainComponentId);
+            return new PlayerCaptainComponentBuilder();
         }
 
         public TeamComponentBuilder TeamComponentBuilder()
         {
-            return new TeamComponentBuilder(ComponentIds.TeamComponentId);
+            return new TeamComponentBuilder();
         }
 
         public LeagueComponentBuilder LeagueComponentBuilder()
         {
-            return new LeagueComponentBuilder(ComponentIds.LeagueComponentId);
+            return new LeagueComponentBuilder();
         }
     }
 }

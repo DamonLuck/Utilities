@@ -1,17 +1,10 @@
 ﻿using DL.ECS.Core;
-using DL.ECS.Core.Components;
 
 namespace DL.ECS.Team.Scenarios.Components
 {
-    public class PlayerCaptainComponentBuilder : BaseComponentBuilder
+    public class PlayerCaptainComponentBuilder : IComponentBuilder
     {
-        public PlayerCaptainComponentBuilder(ComponentId componentId)
-            :base(componentId)
-        {
-
-        }
-
-        public override IComponent Build()
+        public IComponent Build()
         {
             return new PlayerCaptainComponent();
         }

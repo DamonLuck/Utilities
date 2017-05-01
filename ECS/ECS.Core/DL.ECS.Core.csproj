@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\BaseComponentBuilder.cs" />
     <Compile Include="Components\ComponentId.cs" />
     <Compile Include="Components\ComponentManager.cs" />
     <Compile Include="Components\IComponentBuilder.cs" />
