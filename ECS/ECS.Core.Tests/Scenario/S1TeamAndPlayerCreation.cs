@@ -12,18 +12,13 @@ namespace DL.ECS.Core.Tests.Scenario
 {
     public class S1TeamAndPlayerCreation
     {
-        private ComponentId _playerComponentIndex;
-        private ComponentId _teamComponentIndex;
         private Context _context;
-        private int _componentCount = 2;
 
         public S1TeamAndPlayerCreation()
         {
             _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
             _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
 
-            _playerComponentIndex = new ComponentId(0);
-            _teamComponentIndex = new ComponentId(1);
             _context = new Context(_componentDictionary);
         }
 
@@ -36,10 +31,10 @@ namespace DL.ECS.Core.Tests.Scenario
             IEnumerable<IEntity> teams = AddTeams(teamCount);
             IEnumerable<IEntity> players = AddPlayers(playerCount);
 
-            IEnumerable<IEntity> result = _context.GetEntitiesByComponent(_playerComponentIndex);
+            IEnumerable<IEntity> result = _context.GetEntitiesByComponent<PlayerComponent>();
             result.ToList().Should().BeEquivalentTo(players.ToList());
 
-            result = _context.GetEntitiesByComponent(_teamComponentIndex);
+            result = _context.GetEntitiesByComponent<TeamComponent>();
             result.ToList().Should().BeEquivalentTo(teams.ToList());
         }
 
@@ -63,7 +58,7 @@ namespace DL.ECS.Core.Tests.Scenario
         {
             List<IEntity> result = new List<IEntity>();
             for (int i = 0; i < count; i++)
-                result.Add(AddTeam(_context, _teamComponentIndex));
+                result.Add(AddTeam(_context));
 
             return result;
         }
@@ -72,22 +67,22 @@ namespace DL.ECS.Core.Tests.Scenario
         {
             List<IEntity> result = new List<IEntity>();
             for (int i = 0; i < count; i++)
-                result .Add(AddPlayer(_context, _playerComponentIndex));
+                result .Add(AddPlayer(_context));
 
             return result;
         }
 
-        private IEntity AddPlayer(Context context, ComponentId index)
+        private IEntity AddPlayer(Context context)
         {
             PlayerComponent player = new PlayerComponent() { Name = Name.FullName() };
-            IComponentBuilder builder = new TestComponentBuilder(index, player);
+            IComponentBuilder builder = new TestComponentBuilder(player);
             return context.Create().AddComponent<PlayerComponent>(builder);
         }
 
-        private IEntity AddTeam(Context context, ComponentId index)
+        private IEntity AddTeam(Context context)
         {
             TeamComponent team = new TeamComponent() { Name = Address.City() };
-            IComponentBuilder builder = new TestComponentBuilder(index, team);
+            IComponentBuilder builder = new TestComponentBuilder(team);
             return context.Create().AddComponent<TeamComponent>(builder);
         }
 

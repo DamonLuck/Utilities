@@ -39,9 +39,11 @@ namespace DL.ECS.Core.Components
             }
         }
 
-        internal IEnumerable<IEntity> GetEntities(ComponentId componentId)
+        internal IEnumerable<IEntity> GetEntities<TComponent>()
+            where TComponent : IComponent
         {
-            List<IEntity> entities = new List<IEntity>();
+            ComponentId componentId = GetId<TComponent>();
+            List <IEntity> entities = new List<IEntity>();
             _componentEntityRelations[componentId].ToList().ForEach(
                 entityId => entities.Add(_context.GetEntity(entityId)));
 

@@ -31,8 +31,9 @@ namespace DL.ECS.Core
         public IEnumerable<IRelation> GetRelationsBy(Func<IRelation, bool> predicate)
             => _relationManager.GetRelationsBy(predicate);
 
-        public IEnumerable<IEntity> GetEntitiesByComponent(ComponentId componentId)
-            => _componentManager.GetEntities(componentId);
+        public IEnumerable<IEntity> GetEntitiesByComponent<TComponent>()
+            where TComponent : IComponent
+            => _componentManager.GetEntities<TComponent>();
         public IEnumerable<IEntity> GetAllEntities() => _entities.Values;
 
         internal IEntity GetEntity(EntityId index)

@@ -25,8 +25,7 @@ namespace DL.ECS.Team.Scenarios.Domain
         public void Create(int numberOfLeagues, int numberOfTeamsPerLeague)
         {
             IComponentBuilder builder = _componentFactory.LeagueComponentBuilder();
-            IEnumerable<IEntity> teams = _context.GetEntitiesByComponent(
-                _componentFactory.ComponentIds.TeamComponentId);
+            IEnumerable<IEntity> teams = _context.GetEntitiesByComponent<TeamComponent>();
             for (int i = 0; i < numberOfLeagues; i++)
             { 
                 IEntity league = _context.Create().AddComponent<LeagueComponent>(builder);
@@ -38,8 +37,7 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public IEnumerable<LeagueModel> GetAll()
         {
-            return _context.GetEntitiesByComponent(
-                _componentFactory.ComponentIds.LeagueComponentId)
+            return _context.GetEntitiesByComponent<LeagueComponent>()
                 .Select(x => new LeagueModel()
                 {
                     Id = x.EntityId.Id,

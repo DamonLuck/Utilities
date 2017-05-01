@@ -21,8 +21,7 @@ namespace DL.ECS.Core.Tests
         public void AddComponent_ForGet_ReturnsComponent()
         {
             IComponent component = new TeamComponent();
-            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
-            IComponentBuilder builder = new TestComponentBuilder(index, component);
+            IComponentBuilder builder = new TestComponentBuilder(component);
             IEntity entity = CreateSut();
             entity.AddComponent<TeamComponent>(builder);
 
@@ -33,8 +32,7 @@ namespace DL.ECS.Core.Tests
         public void RemoveComponent_ForGet_ReturnsNull()
         {
             IComponent component = new TeamComponent();
-            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
-            IComponentBuilder builder = new TestComponentBuilder(index, component);
+            IComponentBuilder builder = new TestComponentBuilder(component);
 
             IEntity entity = CreateSut();
             entity.AddComponent<TeamComponent>(builder);
@@ -47,8 +45,7 @@ namespace DL.ECS.Core.Tests
         public void AddComponent_Twice_ThrowsException()
         {
             IComponent component = new PlayerComponent();
-            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
-            IComponentBuilder builder = new TestComponentBuilder(index, component);
+            IComponentBuilder builder = new TestComponentBuilder(component);
 
             IEntity entity = CreateSut();
             entity.AddComponent<PlayerComponent>(builder);
@@ -61,8 +58,7 @@ namespace DL.ECS.Core.Tests
         public void RemoveComponent_Twice_ThrowsException()
         {
             IComponent component = new TeamComponent();
-            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
-            IComponentBuilder builder = new TestComponentBuilder(index, component);
+            IComponentBuilder builder = new TestComponentBuilder(component);
 
             IEntity entity = CreateSut();
             entity.AddComponent<TeamComponent>(builder);
