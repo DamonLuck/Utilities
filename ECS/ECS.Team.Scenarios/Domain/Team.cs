@@ -30,6 +30,21 @@ namespace DL.ECS.Team.Scenarios.Domain
             }
         }
 
+        public void SetTeamCaptain(EntityId teamId, EntityId playerId)
+        {
+            IComponentBuilder builder = _componentFactory.PlayerComponentBuilder();
+            IComponentBuilder playerCaptainBuilder = _componentFactory.PlayerCaptainComponentBuilder();
+            var teamRelation = _context.GetRelationsBy(
+                SetFunctions.LookupByPrimaryEntity(teamId))
+                .Single();
+            foreach(var teamEntity in teamRelation.GetEntities())
+            {
+                teamEntity.RemoveComponent(_componentFactory.ComponentIds.PlayerCaptainComponentId);
+                if (teamEntity.EntityId == playerId)
+                    teamEntity.AddComponent(playerCaptainBuilder);
+            }
+        }
+
         public IEnumerable<IEntity> GetAll()
         {
             return _context.GetEntitiesByComponent(

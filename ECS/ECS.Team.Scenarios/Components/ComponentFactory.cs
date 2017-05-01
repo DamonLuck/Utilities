@@ -9,13 +9,18 @@ namespace DL.ECS.Team.Scenarios.Components
 
         public ComponentFactory()
         {
-            TotalComponentCount = 3;
+            TotalComponentCount = 4;
             ComponentIds = new ComponentIds();
         }
 
         public PlayerComponentBuilder PlayerComponentBuilder()
         {
             return new PlayerComponentBuilder(ComponentIds.PlayerComponentId);
+        }
+
+        public PlayerCaptainComponentBuilder PlayerCaptainComponentBuilder()
+        {
+            return new PlayerCaptainComponentBuilder(ComponentIds.PlayerCaptainComponentId);
         }
 
         public TeamComponentBuilder TeamComponentBuilder()

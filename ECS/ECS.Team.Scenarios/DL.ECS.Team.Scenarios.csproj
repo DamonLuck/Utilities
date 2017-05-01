@@ -49,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Builders\LeagueComponentBuilder.cs" />
+    <Compile Include="Components\Builders\PlayerCaptainComponentBuilder.cs" />
     <Compile Include="Components\ComponentFactory.cs" />
     <Compile Include="Components\ComponentIds.cs" />
     <Compile Include="Components\LeagueComponent.cs" />
+    <Compile Include="Components\PlayerCaptainComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="Components\Builders\PlayerComponentBuilder.cs" />
     <Compile Include="Components\TeamComponent.cs" />

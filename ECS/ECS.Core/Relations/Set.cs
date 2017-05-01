@@ -1,9 +1,16 @@
 ﻿using DL.ObjectPool;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DL.ECS.Core
 {
+    public static class SetFunctions
+    {
+        public static Func<IRelation, bool> LookupByPrimaryEntity(EntityId primaryEntityId)
+            => (x) => x is Set && ((Set)x).PrimaryEntityId == primaryEntityId;
+    }
+
     internal class Set : PooledObject<Set>, ISet, IRelation
     {
         private static long _currentId;
