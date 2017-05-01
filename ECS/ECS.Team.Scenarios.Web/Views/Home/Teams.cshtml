@@ -1,0 +1,12 @@
+﻿@model IEnumerable<DL.ECS.Team.Scenarios.Domain.TeamModel> 
+@{
+    ViewBag.Title = "Teams";
+}
+
+<b>Teams</b>
+<br />
+@foreach (var item in Model)
+{
+    @Html.ActionLink(@item.Name, "Players", "Home", new { teamId = @item.Id }, null)
+    <br />
+}

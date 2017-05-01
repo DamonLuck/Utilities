@@ -5,6 +5,12 @@ using System.Linq;
 
 namespace DL.ECS.Team.Scenarios.Domain
 {
+    public class TeamModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class Teams
     {
         private Context _context;
@@ -45,10 +51,22 @@ namespace DL.ECS.Team.Scenarios.Domain
             }
         }
 
-        public IEnumerable<IEntity> GetAll()
+        public IEnumerable<TeamModel> GetAll(long leagueId)
         {
-            return _context.GetEntitiesByComponent(
-                _componentFactory.ComponentIds.TeamComponentId);
+            IRelation leagueRelation =
+                _context.GetRelationsBy(SetFunctions.LookupByPrimaryEntity(new EntityId(leagueId)))
+                .Single();
+
+            return leagueRelation.GetEntities()
+                .Where(x => x.GetComponent(_componentFactory.ComponentIds.TeamComponentId) != null)
+                .Select(x => CreateTeamModel(
+                    x.GetComponent(
+                        _componentFactory.ComponentIds.TeamComponentId) as TeamComponent, x));
+        }
+
+        private TeamModel CreateTeamModel(TeamComponent teamComponent, IEntity entity)
+        {
+            return new TeamModel() { Name = teamComponent.Name, Id = entity.EntityId.Id };
         }
     }
 }

@@ -1,0 +1,12 @@
+﻿@model IEnumerable < DL.ECS.Team.Scenarios.Domain.PlayerModel >
+@{
+    ViewBag.Title = "Players";
+}
+
+<b>Players</b>
+<br />
+@foreach (var item in Model)
+{
+    @item.Name
+    <br />
+}

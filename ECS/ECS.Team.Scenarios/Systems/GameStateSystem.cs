@@ -33,13 +33,13 @@ namespace DL.ECS.Team.Scenarios.Systems
             if(input == "l")
             {
                 // list leagues
-                WriteEntitiesToConsole(_context.League.GetAll());
+               // WriteEntitiesToConsole(_context.League.GetAll());
                 return;
             }
             else if(input == "t")
             {
                 // list teams
-                WriteEntitiesToConsole(_context.Teams.GetAll());
+                //WriteEntitiesToConsole(_context.Teams.GetAll());
                 return;
             }
             int entityId = -1;

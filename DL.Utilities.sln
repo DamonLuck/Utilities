@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL.Infrastructure", "Infrastructure\DL.Infrastructure\DL.Infrastructure.csproj", "{6C1AA645-B3F7-4F27-AEB8-5B858CF44999}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.Team.Scenarios.Web", "ECS\ECS.Team.Scenarios.Web\ECS.Team.Scenarios.Web.csproj", "{28024FF5-2D74-4677-AA29-529C75F4D4AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{6C1AA645-B3F7-4F27-AEB8-5B858CF44999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C1AA645-B3F7-4F27-AEB8-5B858CF44999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C1AA645-B3F7-4F27-AEB8-5B858CF44999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28024FF5-2D74-4677-AA29-529C75F4D4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28024FF5-2D74-4677-AA29-529C75F4D4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28024FF5-2D74-4677-AA29-529C75F4D4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28024FF5-2D74-4677-AA29-529C75F4D4AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,6 @@ Global
 		{8B9C902A-B9BA-4FDD-BF9D-20E1297D814B} = {63362875-FE32-4CD3-957A-1043B90317C4}
 		{7ABC9844-D53A-4DF1-9F2B-BC39A8A177F7} = {63362875-FE32-4CD3-957A-1043B90317C4}
 		{6C1AA645-B3F7-4F27-AEB8-5B858CF44999} = {55315D68-1A7E-4949-B83E-DED894E24A51}
+		{28024FF5-2D74-4677-AA29-529C75F4D4AD} = {63362875-FE32-4CD3-957A-1043B90317C4}
 	EndGlobalSection
 EndGlobal
