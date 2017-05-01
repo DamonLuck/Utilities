@@ -1,10 +1,20 @@
-﻿using FluentAssertions;
+﻿using DL.ECS.Core.Components;
+using DL.ECS.Core.Tests.TestComponents;
+using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace DL.ECS.Core.Tests
 {
     public class SetTests
     {
+        public SetTests()
+        {
+            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
+            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+        }
+
         [Fact]
         public void Entity_CanBe_AddedToASet()
         {
@@ -110,7 +120,9 @@ namespace DL.ECS.Core.Tests
             set.PrimaryEntityId.Should().Be(Set.DefaultPrimaryEntityId);
         }
 
-        private const int _totalComponents = 5;
-        private Context CreateSut() => new Context(_totalComponents);
+        private Context CreateSut() => new Context(_componentDictionary);
+
+        private IDictionary<Type, ComponentId> _componentDictionary
+            = new Dictionary<Type, ComponentId>();
     }
 }

@@ -6,7 +6,7 @@ namespace DL.ECS.Team.Scenarios.Domain
     public class DomainContext : Context
     {
         public DomainContext(ComponentFactory componentFactory)
-            :base(componentFactory.TotalComponentCount)
+            :base(componentFactory.ComponentLookup)
         {
             Players = new Players(this, componentFactory);
             Teams = new Teams(this, componentFactory);

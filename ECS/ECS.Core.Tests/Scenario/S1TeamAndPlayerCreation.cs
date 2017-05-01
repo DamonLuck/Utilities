@@ -6,6 +6,7 @@ using Faker;
 using System.Collections.Generic;
 using FluentAssertions;
 using DL.Infrastructure;
+using System;
 
 namespace DL.ECS.Core.Tests.Scenario
 {
@@ -18,9 +19,12 @@ namespace DL.ECS.Core.Tests.Scenario
 
         public S1TeamAndPlayerCreation()
         {
+            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
+            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+
             _playerComponentIndex = new ComponentId(0);
             _teamComponentIndex = new ComponentId(1);
-            _context = new Context(_componentCount);
+            _context = new Context(_componentDictionary);
         }
 
         [Fact]
@@ -86,5 +90,8 @@ namespace DL.ECS.Core.Tests.Scenario
             IComponentBuilder builder = new TestComponentBuilder(index, team);
             return context.Create().AddComponent(builder);
         }
+
+        private IDictionary<Type, ComponentId> _componentDictionary
+            = new Dictionary<Type, ComponentId>();
     }
 }

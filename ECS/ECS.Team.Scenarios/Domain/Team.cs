@@ -58,10 +58,9 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .Single();
 
             return leagueRelation.GetEntities()
-                .Where(x => x.GetComponent(_componentFactory.ComponentIds.TeamComponentId) != null)
+                .Where(x => x.GetComponent<TeamComponent>() != null)
                 .Select(x => CreateTeamModel(
-                    x.GetComponent(
-                        _componentFactory.ComponentIds.TeamComponentId) as TeamComponent, x));
+                    x.GetComponent<TeamComponent>(), x));
         }
 
         private TeamModel CreateTeamModel(TeamComponent teamComponent, IEntity entity)

@@ -1,12 +1,21 @@
 ﻿using DL.ECS.Core.Components;
 using DL.ECS.Core.Exceptions;
+using DL.ECS.Core.Tests.TestComponents;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace DL.ECS.Core.Tests
 {
     public class EntityCreationTests
     {
+        public EntityCreationTests()
+        {
+            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
+            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+        }
+
         [Fact]
         public void Entity_CanBe_Created()
         {
@@ -54,7 +63,7 @@ namespace DL.ECS.Core.Tests
             Context sut = CreateSut();
             IEntity entity = sut.Create();
 
-            entity.TotalComponents.Should().Be(_totalComponents);
+            entity.TotalComponents.Should().Be(_componentDictionary.Count);
         }
 
         [Fact]
@@ -64,15 +73,15 @@ namespace DL.ECS.Core.Tests
             Context sut = CreateSut();
             IEntity entity = sut.Create();
 
-            entity.TotalComponents.Should().Be(_totalComponents);
+            entity.TotalComponents.Should().Be(_componentDictionary.Count);
 
-            for (long index = 0; index < _totalComponents; index++)
-            {
-                entity.GetComponent(new ComponentId(index)).Should().BeNull();
-            }
+            entity.GetComponent<PlayerComponent>().Should().BeNull();
+            entity.GetComponent<TeamComponent>().Should().BeNull();
         }
 
-        private const int _totalComponents = 5;
-        private Context CreateSut() => new Context(_totalComponents);
+        private Context CreateSut() => new Context(_componentDictionary);
+
+        private IDictionary<Type, ComponentId> _componentDictionary
+            = new Dictionary<Type, ComponentId>();
     }
 }

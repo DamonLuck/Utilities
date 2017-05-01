@@ -1,17 +1,26 @@
 ﻿using DL.ECS.Core;
+using DL.ECS.Core.Components;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DL.ECS.Team.Scenarios.Components
 {
     public class ComponentFactory
     {
-        public int TotalComponentCount { get; }
         public ComponentIds ComponentIds { get; }
 
         public ComponentFactory()
         {
-            TotalComponentCount = 4;
             ComponentIds = new ComponentIds();
+            ComponentLookup = new Dictionary<Type, ComponentId>();
+            ComponentLookup.Add(typeof(PlayerComponent), ComponentIds.PlayerComponentId);
+            ComponentLookup.Add(typeof(PlayerCaptainComponent), ComponentIds.PlayerCaptainComponentId);
+            ComponentLookup.Add(typeof(TeamComponent), ComponentIds.TeamComponentId);
+            ComponentLookup.Add(typeof(LeagueComponent), ComponentIds.LeagueComponentId);
         }
+
+        public IDictionary<Type, ComponentId> ComponentLookup;
 
         public PlayerComponentBuilder PlayerComponentBuilder()
         {

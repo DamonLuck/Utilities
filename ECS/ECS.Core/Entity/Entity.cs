@@ -12,7 +12,7 @@ namespace DL.ECS.Core
         EntityId EntityId { get; }
         int TotalComponents { get; }
 
-        IComponent GetComponent(ComponentId componentId);
+        TComponent GetComponent<TComponent>() where TComponent : IComponent;
         IEntity AddComponent(IComponentBuilder componentBuilder);
         IEntity RemoveComponent(ComponentId componentId);
     }
@@ -36,7 +36,11 @@ namespace DL.ECS.Core
             return entity;
         }
 
-        public IComponent GetComponent(ComponentId componentId) => _components[componentId.Id];
+        public TComponent GetComponent<TComponent>() where TComponent : IComponent
+        {
+            long index = _componentManager.GetId<TComponent>().Id;
+            return (TComponent)_components[index];
+        }
 
         public IEntity AddComponent(IComponentBuilder componentBuilder)
         {

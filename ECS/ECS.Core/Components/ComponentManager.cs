@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DL.ECS.Core.Components
@@ -9,11 +10,17 @@ namespace DL.ECS.Core.Components
             new Dictionary<ComponentId, HashSet<EntityId>>();
         private readonly Context _context;
         private readonly int _totalComponentCount;
-
-        internal ComponentManager(Context context, int totalComponentCount)
+        private readonly IDictionary<Type, ComponentId> _componentIdLookup;
+        internal ComponentManager(Context context, IDictionary<Type, ComponentId> componentIdLookup)
         {
             _context = context;
-            _totalComponentCount = totalComponentCount;
+            _totalComponentCount = componentIdLookup.Count;
+            _componentIdLookup = componentIdLookup;
+        }
+
+        internal ComponentId GetId<TComponent>() where TComponent : IComponent
+        {
+            return _componentIdLookup[typeof(TComponent)];
         }
 
         public void AddComponent(ComponentId componentId, EntityId entityId)
@@ -45,10 +52,9 @@ namespace DL.ECS.Core.Components
         {
             for(int i = 0; i< _totalComponentCount; i++)
             {
-                if (entity.GetComponent(new ComponentId(i)) != null)
-                {
-                    _componentEntityRelations[new ComponentId(i)].Remove(entity.EntityId);
-                }
+                ComponentId componentId = new ComponentId(i);
+                if(_componentEntityRelations.ContainsKey(componentId))
+                    _componentEntityRelations[componentId].Remove(entity.EntityId);
             }
         }
     }

@@ -4,44 +4,50 @@ using DL.ECS.Core.Exceptions;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
+using System.Collections.Generic;
+using DL.ECS.Core.Tests.TestComponents;
 
 namespace DL.ECS.Core.Tests
 {
     public class EntityComponentTest
     {
-        private Context _context = new Context(_totalComponents);
+        public EntityComponentTest()
+        {
+            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
+            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+        }
 
         [Fact]
         public void AddComponent_ForGet_ReturnsComponent()
         {
-            IComponent component = Substitute.For<IComponent>();
-            ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponent component = new TeamComponent();
+            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
             IEntity entity = CreateSut();
             entity.AddComponent(builder);
 
-            entity.GetComponent(index).Should().Be(component);
+            entity.GetComponent<TeamComponent>().Should().Be(component);
         }
 
         [Fact]
         public void RemoveComponent_ForGet_ReturnsNull()
         {
-            IComponent component = Substitute.For<IComponent>();
-            ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponent component = new PlayerComponent();
+            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
             entity.AddComponent(builder);
             entity.RemoveComponent(index);
 
-            entity.GetComponent(index).Should().Be(null);
+            entity.GetComponent<PlayerComponent>().Should().Be(null);
         }
 
         [Fact]
         public void AddComponent_Twice_ThrowsException()
         {
-            IComponent component = Substitute.For<IComponent>();
-            ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponent component = new PlayerComponent();
+            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
@@ -54,8 +60,8 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void RemoveComponent_Twice_ThrowsException()
         {
-            IComponent component = Substitute.For<IComponent>();
-            ComponentId index = new ComponentId(_totalComponents - 1);
+            IComponent component = new PlayerComponent();
+            ComponentId index = new ComponentId(_componentDictionary.Count - 1);
             IComponentBuilder builder = new TestComponentBuilder(index, component);
 
             IEntity entity = CreateSut();
@@ -66,7 +72,10 @@ namespace DL.ECS.Core.Tests
                 () => entity.RemoveComponent(index));
         }
 
-        private const int _totalComponents = 5;
+        private Context _context => new Context(_componentDictionary);
         private IEntity CreateSut() => _context.Create();
+
+        private IDictionary<Type, ComponentId> _componentDictionary
+            = new Dictionary<Type, ComponentId>();
     }
 }
