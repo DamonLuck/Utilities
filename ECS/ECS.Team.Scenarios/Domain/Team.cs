@@ -45,7 +45,7 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .Single();
             foreach(var teamEntity in teamRelation.GetEntities())
             {
-                teamEntity.RemoveComponent(_componentFactory.ComponentIds.PlayerCaptainComponentId);
+                teamEntity.RemoveComponent<PlayerCaptainComponent>();
                 if (teamEntity.EntityId == playerId)
                     teamEntity.AddComponent<PlayerCaptainComponent>(playerCaptainBuilder);
             }

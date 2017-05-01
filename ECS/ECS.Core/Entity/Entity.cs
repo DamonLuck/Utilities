@@ -15,7 +15,8 @@ namespace DL.ECS.Core
         TComponent GetComponent<TComponent>() where TComponent : IComponent;
         IEntity AddComponent<TComponent>(IComponentBuilder componentBuilder)
              where TComponent : IComponent;
-        IEntity RemoveComponent(ComponentId componentId);
+        IEntity RemoveComponent<TComponent>()
+             where TComponent : IComponent;
     }
 
     internal class Entity : PooledObject<Entity>, IEntity
@@ -57,12 +58,14 @@ namespace DL.ECS.Core
             return this;
         }
 
-        public IEntity RemoveComponent(ComponentId componentId)
+        public IEntity RemoveComponent<TComponent>()
+             where TComponent : IComponent
         {
-            if (_components[componentId.Id] == null)
-                throw new EntityDoesNotHaveComponentException(this, componentId.Id);
+            long componentIndex = _componentManager.GetId<TComponent>().Id;
+            if (_components[componentIndex] == null)
+                throw new EntityDoesNotHaveComponentException(this, componentIndex);
 
-            _components[componentId.Id] = null;
+            _components[componentIndex] = null;
             return this;
         }
 

@@ -38,7 +38,7 @@ namespace DL.ECS.Core.Tests
 
             IEntity entity = CreateSut();
             entity.AddComponent<TeamComponent>(builder);
-            entity.RemoveComponent(index);
+            entity.RemoveComponent<TeamComponent>();
 
             entity.GetComponent<TeamComponent>().Should().Be(null);
         }
@@ -66,10 +66,10 @@ namespace DL.ECS.Core.Tests
 
             IEntity entity = CreateSut();
             entity.AddComponent<TeamComponent>(builder);
-            entity.RemoveComponent(index);
+            entity.RemoveComponent<TeamComponent>();
 
             Assert.Throws(typeof(EntityDoesNotHaveComponentException),
-                () => entity.RemoveComponent(index));
+                () => entity.RemoveComponent<TeamComponent>());
         }
 
         private Context _context => new Context(_componentDictionary);
