@@ -20,26 +20,20 @@ namespace DL.ECS.Team.Scenarios.Domain
             _context = context;
         }
 
-        public void Create(int numberOfLeagues, int numberOfTeamsPerLeague)
+        public void Create(IEnumerable<IEntity> teams)
         {
-            int skip = 0;
-            IEnumerable<IEntity> teams = _context.GetEntitiesByComponent<TeamComponent>();
-            for (int i = 0; i < numberOfLeagues; i++)
-            {
-                IEntity league = _context.Create()
+            IEntity league = _context.Create()
                     .AddComponent(ComponentFactory.CreateLeagueComponent())
                     .CreateLeagueMembershipComponent();
-                LeagueMembershipComponent leagueTeamMembership =
-                    ComponentFactory.CreateLeagueTeamMembershipComponent(league);
-                AddTeamsToLeague(numberOfTeamsPerLeague, skip, teams, leagueTeamMembership);
-                skip += numberOfTeamsPerLeague;
-            }
+            AddTeamsToLeague(league, teams);
         }
 
-        private static void AddTeamsToLeague(int numberOfTeamsPerLeague, int skip, IEnumerable<IEntity> teams, LeagueMembershipComponent leagueTeamMembership)
+        private static void AddTeamsToLeague(IEntity league, IEnumerable<IEntity> teams)
         {
-            teams.Skip(skip).Take(numberOfTeamsPerLeague).ToList().ForEach(
-                x => x.AddComponent(leagueTeamMembership));
+            LeagueMembershipComponent leagueTeamMembership =
+                ComponentFactory.CreateLeagueTeamMembershipComponent(league);
+            teams.ToList().ForEach(
+                    x => x.AddComponent(leagueTeamMembership));
         }
 
         public IEnumerable<LeagueModel> GetAll()

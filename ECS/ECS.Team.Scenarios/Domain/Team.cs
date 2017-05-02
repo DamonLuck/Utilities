@@ -20,26 +20,20 @@ namespace DL.ECS.Team.Scenarios.Domain
             _context = context;
         }
 
-        public void Create(int numberOfTeams, int playersPerTeam)
+        public void Create(IEnumerable<IEntity> players)
         {
-            int skip = 0;
-            IEnumerable<IEntity> players = _context.GetEntitiesByComponent<PlayerComponent>();
-            for (int i = 0; i < numberOfTeams; i++)
-            {
-                IEntity team = _context.Create()
-                    .AddComponent(ComponentFactory.CreateTeamComponent())
-                    .CreateTeamMembershipComponent();
-                TeamMembershipComponent teamMembership =
-                    ComponentFactory.CreateTeamPlayerMembershipComponent(team);
+            IEntity team = _context.Create()
+                .AddComponent(ComponentFactory.CreateTeamComponent())
+                .CreateTeamMembershipComponent();
 
-                AddPlayers(playersPerTeam, skip, players, teamMembership);
-                skip += playersPerTeam;
-            }
+            AddPlayers(team, players);
         }
 
-        private static void AddPlayers(int playersPerTeam, int skip, IEnumerable<IEntity> players, TeamMembershipComponent teamMembership)
+        private static void AddPlayers(IEntity team, IEnumerable<IEntity> players)
         {
-            players.Skip(skip).Take(playersPerTeam).ToList()
+            TeamMembershipComponent teamMembership =
+                ComponentFactory.CreateTeamPlayerMembershipComponent(team);
+            players.ToList()
                 .ForEach(x => x.AddComponent(teamMembership));
         }
 
@@ -50,9 +44,20 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public IEnumerable<TeamModel> GetAll(long leagueId)
         {
-            var entities = _context.GetEntitiesByComponent<LeagueMembershipComponent>()
-                .Where(x => x.GetComponent<LeagueMembershipComponent>().LeagueId == leagueId);
+            IEnumerable<IEntity> teams = GetTeams(leagueId);
 
+            return CreateTeamModels(teams);
+        }
+
+        private IEnumerable<IEntity> GetTeams(long leagueId)
+        {
+            return _context
+                .GetEntitiesByComponent<LeagueMembershipComponent>(x => x.LeagueId == leagueId
+                    && !x.IsLeague);
+        }
+
+        private IEnumerable<TeamModel> CreateTeamModels(IEnumerable<IEntity> entities)
+        {
             return entities
                 .Where(x => x.GetComponent<TeamComponent>() != null)
                 .Select(x => CreateTeamModel(

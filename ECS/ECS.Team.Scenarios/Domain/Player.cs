@@ -20,25 +20,35 @@ namespace DL.ECS.Team.Scenarios.Domain
             _context = context;
         }
 
-        public void Create(int numberOfPlayers)
+        public void Create()
         {
-            for(int i=0; i< numberOfPlayers; i++)
-                _context.Create().AddComponent(
-                    ComponentFactory.CreatePlayerComponent());
+            _context.Create().AddComponent(
+                ComponentFactory.CreatePlayerComponent());
         }
 
         public IEnumerable<PlayerModel> GetAll(long teamId)
         {
-            var entities = _context.GetEntitiesByComponent<TeamMembershipComponent>()
-                .Where(x => x.GetComponent<TeamMembershipComponent>().TeamId == teamId);
+            IEnumerable<IEntity> players = GetPlayers(teamId);
 
+            return CreatePlayerModels(players);
+        }
+
+        private IEnumerable<IEntity> GetPlayers(long teamId)
+        {
+            return _context
+                .GetEntitiesByComponent<TeamMembershipComponent>(x => x.TeamId == teamId
+                && !x.IsTeam);
+        }
+
+        private IEnumerable<PlayerModel> CreatePlayerModels(IEnumerable<IEntity> entities)
+        {
             return entities
                 .Where(x => x.GetComponent<PlayerComponent>() != null)
-                .Select(x => CreateTeamModel(
+                .Select(x => CreatePlayerModel(
                     x.GetComponent<PlayerComponent>(), x));
         }
 
-        private PlayerModel CreateTeamModel(PlayerComponent playerComponent, IEntity entity)
+        private PlayerModel CreatePlayerModel(PlayerComponent playerComponent, IEntity entity)
         {
             return new PlayerModel() { Name = playerComponent.Name, Id = entity.EntityId.Id };
         }
