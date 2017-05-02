@@ -11,11 +11,11 @@ namespace DL.ECS.Core.Components
         private readonly Context _context;
         private readonly int _totalComponentCount;
         private readonly IDictionary<Type, ComponentId> _componentIdLookup;
-        internal ComponentManager(Context context, IDictionary<Type, ComponentId> componentIdLookup)
+        internal ComponentManager(Context context, IList<Type> componentIdLookup)
         {
             _context = context;
             _totalComponentCount = componentIdLookup.Count;
-            _componentIdLookup = componentIdLookup;
+            _componentIdLookup = GenerateComponentIdLookup(componentIdLookup);
         }
 
         internal ComponentId GetId<TComponent>() where TComponent : IComponent
@@ -58,6 +58,22 @@ namespace DL.ECS.Core.Components
                 if(_componentEntityRelations.ContainsKey(componentId))
                     _componentEntityRelations[componentId].Remove(entity.EntityId);
             }
+        }
+
+        private IDictionary<Type, ComponentId> GenerateComponentIdLookup(IList<Type> types)
+        {
+            IDictionary<Type, ComponentId> componentLookup =
+                new Dictionary<Type, ComponentId>();
+
+            int currentId = 0;
+
+            foreach (var componentType in types)
+            {
+                componentLookup.Add(componentType, new ComponentId(currentId));
+                currentId++;
+            }
+
+            return componentLookup;
         }
     }
 }

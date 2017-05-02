@@ -1,8 +1,6 @@
 ﻿using System;
-using DL.ECS.Core.Components;
 using DL.ECS.Core.Exceptions;
 using FluentAssertions;
-using NSubstitute;
 using Xunit;
 using System.Collections.Generic;
 using DL.ECS.Core.Tests.TestComponents;
@@ -13,8 +11,8 @@ namespace DL.ECS.Core.Tests
     {
         public EntityComponentTest()
         {
-            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
-            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+            _componentLookup.Add(typeof(PlayerComponent));
+            _componentLookup.Add(typeof(TeamComponent));
         }
 
         [Fact]
@@ -61,10 +59,10 @@ namespace DL.ECS.Core.Tests
                 () => entity.RemoveComponent<TeamComponent>());
         }
 
-        private Context _context => new Context(_componentDictionary);
+        private Context _context => new Context(_componentLookup);
         private IEntity CreateSut() => _context.Create();
 
-        private IDictionary<Type, ComponentId> _componentDictionary
-            = new Dictionary<Type, ComponentId>();
+        private IList<Type> _componentLookup
+            = new List<Type>();
     }
 }

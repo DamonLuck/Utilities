@@ -1,11 +1,9 @@
-﻿using DL.ECS.Core.Components;
-using DL.ECS.Core.Tests.TestComponents;
+﻿using DL.ECS.Core.Tests.TestComponents;
 using Xunit;
 using System.Linq;
 using Faker;
 using System.Collections.Generic;
 using FluentAssertions;
-using DL.Infrastructure;
 using System;
 
 namespace DL.ECS.Core.Tests.Scenario
@@ -16,10 +14,10 @@ namespace DL.ECS.Core.Tests.Scenario
 
         public S1TeamAndPlayerCreation()
         {
-            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
-            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+            _componentLookup.Add(typeof(PlayerComponent));
+            _componentLookup.Add(typeof(TeamComponent));
 
-            _context = new Context(_componentDictionary);
+            _context = new Context(_componentLookup);
         }
 
         [Fact]
@@ -84,7 +82,7 @@ namespace DL.ECS.Core.Tests.Scenario
             return context.Create().AddComponent(team);
         }
 
-        private IDictionary<Type, ComponentId> _componentDictionary
-            = new Dictionary<Type, ComponentId>();
+        private IList<Type> _componentLookup
+            = new List<Type>();
     }
 }

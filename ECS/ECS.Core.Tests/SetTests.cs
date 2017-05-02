@@ -1,5 +1,4 @@
-﻿using DL.ECS.Core.Components;
-using DL.ECS.Core.Tests.TestComponents;
+﻿using DL.ECS.Core.Tests.TestComponents;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -11,8 +10,8 @@ namespace DL.ECS.Core.Tests
     {
         public SetTests()
         {
-            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
-            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+            _componentLookup.Add(typeof(PlayerComponent));
+            _componentLookup.Add(typeof(TeamComponent));
         }
 
         [Fact]
@@ -120,9 +119,9 @@ namespace DL.ECS.Core.Tests
             set.PrimaryEntityId.Should().Be(Set.DefaultPrimaryEntityId);
         }
 
-        private Context CreateSut() => new Context(_componentDictionary);
+        private Context CreateSut() => new Context(_componentLookup);
 
-        private IDictionary<Type, ComponentId> _componentDictionary
-            = new Dictionary<Type, ComponentId>();
+        private IList<Type> _componentLookup
+            = new List<Type>();
     }
 }

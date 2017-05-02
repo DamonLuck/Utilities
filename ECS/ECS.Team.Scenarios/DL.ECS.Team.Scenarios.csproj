@@ -54,13 +54,15 @@
     <Compile Include="Components\Builders\LeagueComponentBuilder.cs" />
     <Compile Include="Components\Builders\PlayerCaptainComponentBuilder.cs" />
     <Compile Include="Components\ComponentFactory.cs" />
-    <Compile Include="Components\ComponentIds.cs" />
     <Compile Include="Components\LeagueComponent.cs" />
+    <Compile Include="Components\PersonComponent.cs" />
     <Compile Include="Components\PlayerCaptainComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="Components\Builders\PlayerComponentBuilder.cs" />
     <Compile Include="Components\TeamComponent.cs" />
     <Compile Include="Components\Builders\TeamComponentBuilder.cs" />
+    <Compile Include="DomainRelations\DomainRelationsContext.cs" />
+    <Compile Include="DomainRelations\People.cs" />
     <Compile Include="Domain\Competition.cs" />
     <Compile Include="Domain\DomainContext.cs" />
     <Compile Include="Domain\League.cs" />

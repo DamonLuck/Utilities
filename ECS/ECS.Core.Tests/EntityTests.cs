@@ -12,8 +12,8 @@ namespace DL.ECS.Core.Tests
     {
         public EntityCreationTests()
         {
-            _componentDictionary.Add(typeof(PlayerComponent), new ComponentId(0));
-            _componentDictionary.Add(typeof(TeamComponent), new ComponentId(1));
+            _componentLookup.Add(typeof(PlayerComponent));
+            _componentLookup.Add(typeof(TeamComponent));
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace DL.ECS.Core.Tests
             Context sut = CreateSut();
             IEntity entity = sut.Create();
 
-            entity.TotalComponents.Should().Be(_componentDictionary.Count);
+            entity.TotalComponents.Should().Be(_componentLookup.Count);
         }
 
         [Fact]
@@ -73,15 +73,15 @@ namespace DL.ECS.Core.Tests
             Context sut = CreateSut();
             IEntity entity = sut.Create();
 
-            entity.TotalComponents.Should().Be(_componentDictionary.Count);
+            entity.TotalComponents.Should().Be(_componentLookup.Count);
 
             entity.GetComponent<PlayerComponent>().Should().BeNull();
             entity.GetComponent<TeamComponent>().Should().BeNull();
         }
 
-        private Context CreateSut() => new Context(_componentDictionary);
+        private Context CreateSut() => new Context(_componentLookup);
 
-        private IDictionary<Type, ComponentId> _componentDictionary
-            = new Dictionary<Type, ComponentId>();
+        private IList<Type> _componentLookup
+            = new List<Type>();
     }
 }

@@ -12,7 +12,7 @@ namespace DL.ECS.Core
         private Dictionary<EntityId, Entity> _entities = new Dictionary<EntityId, Entity>();
         private readonly int _totalComponents;
 
-        public Context(IDictionary<Type, ComponentId> componentLookup)
+        public Context(IList<Type> componentLookup)
         {
             _totalComponents = componentLookup.Count;
             _relationManager = new RelationManager(this);
