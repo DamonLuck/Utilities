@@ -21,10 +21,8 @@ namespace DL.ECS.Core.Tests
         public void AddComponent_ForGet_ReturnsComponent()
         {
             TeamComponent component = new TeamComponent();
-            IComponentBuilder<TeamComponent> builder = 
-                new TestComponentBuilder<TeamComponent>(component);
             IEntity entity = CreateSut();
-            entity.AddComponent<TeamComponent>(builder.Build());
+            entity.AddComponent<TeamComponent>(component);
 
             entity.GetComponent<TeamComponent>().Should().Be(component);
         }
@@ -33,11 +31,8 @@ namespace DL.ECS.Core.Tests
         public void RemoveComponent_ForGet_ReturnsNull()
         {
             TeamComponent component = new TeamComponent();
-            IComponentBuilder<TeamComponent> builder = 
-                new TestComponentBuilder<TeamComponent>(component);
-
             IEntity entity = CreateSut();
-            entity.AddComponent<TeamComponent>(builder.Build());
+            entity.AddComponent<TeamComponent>(component);
             entity.RemoveComponent<TeamComponent>();
 
             entity.GetComponent<TeamComponent>().Should().Be(null);
@@ -47,25 +42,19 @@ namespace DL.ECS.Core.Tests
         public void AddComponent_Twice_ThrowsException()
         {
             PlayerComponent component = new PlayerComponent();
-            IComponentBuilder<PlayerComponent> builder = 
-                new TestComponentBuilder<PlayerComponent>(component);
-
             IEntity entity = CreateSut();
-            entity.AddComponent<PlayerComponent>(builder.Build());
+            entity.AddComponent<PlayerComponent>(component);
 
             Assert.Throws(typeof(EntityAlreadyHasComponentException),
-                () => entity.AddComponent<PlayerComponent>(builder.Build()));
+                () => entity.AddComponent<PlayerComponent>(component));
         }
 
         [Fact]
         public void RemoveComponent_Twice_ThrowsException()
         {
             TeamComponent component = new TeamComponent();
-            IComponentBuilder<TeamComponent> builder =
-                new TestComponentBuilder<TeamComponent>(component);
-
             IEntity entity = CreateSut();
-            entity.AddComponent<TeamComponent>(builder.Build());
+            entity.AddComponent<TeamComponent>(component);
             entity.RemoveComponent<TeamComponent>();
 
             Assert.Throws(typeof(EntityDoesNotHaveComponentException),
