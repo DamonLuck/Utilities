@@ -25,11 +25,11 @@ namespace DL.ECS.Team.Scenarios.Domain
         public void Create(int numberOfTeams, int playersPerTeam)
         {
             int skip = 0;
-            IComponentBuilder builder = _componentFactory.TeamComponentBuilder();
+            IComponentBuilder<TeamComponent> builder = _componentFactory.TeamComponentBuilder();
             IEnumerable<IEntity> players = _context.GetEntitiesByComponent<PlayerComponent>();
             for (int i = 0; i < numberOfTeams; i++)
             { 
-                IEntity team = _context.Create().AddComponent<TeamComponent>(builder);
+                IEntity team = _context.Create().AddComponent<TeamComponent>(builder.Build());
                 _context.CreateSet()
                     .AddPrimaryEntity(team)
                     .AddEntities(players.Skip(skip).Take(playersPerTeam));
@@ -39,8 +39,10 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public void SetTeamCaptain(EntityId teamId, EntityId playerId)
         {
-            IComponentBuilder builder = _componentFactory.PlayerComponentBuilder();
-            IComponentBuilder playerCaptainBuilder = _componentFactory.PlayerCaptainComponentBuilder();
+            IComponentBuilder<PlayerComponent> builder = 
+                _componentFactory.PlayerComponentBuilder();
+            IComponentBuilder<PlayerCaptainComponent> playerCaptainBuilder = 
+                _componentFactory.PlayerCaptainComponentBuilder();
             var teamRelation = _context.GetRelationsBy(
                 SetFunctions.LookupByPrimaryEntity(teamId))
                 .Single();
@@ -48,7 +50,8 @@ namespace DL.ECS.Team.Scenarios.Domain
             {
                 teamEntity.RemoveComponent<PlayerCaptainComponent>();
                 if (teamEntity.EntityId == playerId)
-                    teamEntity.AddComponent<PlayerCaptainComponent>(playerCaptainBuilder);
+                    teamEntity.AddComponent<PlayerCaptainComponent>(
+                        playerCaptainBuilder.Build());
             }
         }
 

@@ -2,14 +2,15 @@
 
 namespace DL.ECS.Core.Tests
 {
-    public class TestComponentBuilder : IComponentBuilder
+    public class TestComponentBuilder<TComponent> : IComponentBuilder<TComponent> 
+        where TComponent : IComponent
     {
-        private IComponent _component;
-        public TestComponentBuilder(IComponent component)
+        private TComponent _component;
+        public TestComponentBuilder(TComponent component)
         {
             _component = component;
         }
 
-        public IComponent Build() => _component;
+        public TComponent Build() => _component;
     }
 }

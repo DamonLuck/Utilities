@@ -2,9 +2,9 @@
 
 namespace DL.ECS.Team.Scenarios.Components
 {
-    public class TeamComponentBuilder : IComponentBuilder
+    public class TeamComponentBuilder : IComponentBuilder<TeamComponent>
     {
-        public IComponent Build()
+        public TeamComponent Build()
         {
             return new TeamComponent() { Name = Faker.Name.FullName() };
         }

@@ -24,10 +24,11 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public void Create(int numberOfPlayers)
         {
-            IComponentBuilder builder = _componentFactory.PlayerComponentBuilder();
+            IComponentBuilder<PlayerComponent> builder = 
+                _componentFactory.PlayerComponentBuilder();
 
             for(int i=0; i< numberOfPlayers; i++)
-                _context.Create().AddComponent<PlayerComponent>(builder);
+                _context.Create().AddComponent<PlayerComponent>(builder.Build());
         }
 
         public IEnumerable<PlayerModel> GetAll(long teamId)

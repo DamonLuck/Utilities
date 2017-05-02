@@ -2,9 +2,9 @@
 
 namespace DL.ECS.Team.Scenarios.Components
 {
-    public class LeagueComponentBuilder : IComponentBuilder
+    public class LeagueComponentBuilder : IComponentBuilder<LeagueComponent>
     {
-        public IComponent Build()
+        public LeagueComponent Build()
         {
             return new LeagueComponent() { Name = Faker.Company.Name()};
         }

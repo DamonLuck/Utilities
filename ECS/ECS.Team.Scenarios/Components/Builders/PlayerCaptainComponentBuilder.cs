@@ -2,9 +2,9 @@
 
 namespace DL.ECS.Team.Scenarios.Components
 {
-    public class PlayerCaptainComponentBuilder : IComponentBuilder
+    public class PlayerCaptainComponentBuilder : IComponentBuilder<PlayerCaptainComponent>
     {
-        public IComponent Build()
+        public PlayerCaptainComponent Build()
         {
             return new PlayerCaptainComponent();
         }

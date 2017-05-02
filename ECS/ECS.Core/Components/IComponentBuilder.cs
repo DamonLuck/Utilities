@@ -2,8 +2,8 @@
 
 namespace DL.ECS.Core
 {
-    public interface IComponentBuilder
+    public interface IComponentBuilder<TComponent> where TComponent:IComponent
     {
-        IComponent Build();
+        TComponent Build();
     }
 }
