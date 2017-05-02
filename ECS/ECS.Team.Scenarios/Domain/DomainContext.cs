@@ -5,13 +5,13 @@ namespace DL.ECS.Team.Scenarios.Domain
 {
     public class DomainContext : Context
     {
-        public DomainContext(ComponentFactory componentFactory)
-            :base(componentFactory.ComponentLookup)
+        public DomainContext()
+            :base(ComponentFactory.ComponentLookup)
         {
-            Players = new Players(this, componentFactory);
-            Teams = new Teams(this, componentFactory);
-            League = new League(this, componentFactory);
-            Competition = new Competition(this, componentFactory);
+            Players = new Players(this);
+            Teams = new Teams(this);
+            League = new League(this);
+            Competition = new Competition(this);
         }
 
         public Players Players { get; }

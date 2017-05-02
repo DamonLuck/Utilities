@@ -1,6 +1,7 @@
 ﻿using DL.ECS.Core.Components;
 using DL.ECS.Core.Exceptions;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace DL.ECS.Core
@@ -27,6 +28,13 @@ namespace DL.ECS.Core
         public IEnumerable<IEntity> GetEntitiesByComponent<TComponent>()
             where TComponent : IComponent
             => _componentManager.GetEntities<TComponent>();
+
+        public IEnumerable<IEntity> GetEntitiesByComponent<TComponent>(Func<TComponent, bool> predicate)
+            where TComponent : IComponent
+            => _componentManager
+                    .GetEntities<TComponent>()
+                    .Where(x => predicate(x.GetComponent< TComponent>()));
+
         public IEnumerable<IEntity> GetAllEntities() => _entities.Values;
 
         internal IEntity GetEntity(EntityId index)

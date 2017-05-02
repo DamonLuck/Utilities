@@ -14,33 +14,32 @@ namespace DL.ECS.Team.Scenarios.Domain
     public class League
     {
         private Context _context;
-        private readonly ComponentFactory _componentFactory;
 
-        public League(Context context, ComponentFactory componentFactory)
+        public League(Context context)
         {
             _context = context;
-            _componentFactory = componentFactory;
         }
 
         public void Create(int numberOfLeagues, int numberOfTeamsPerLeague)
         {
             int skip = 0;
-            IComponentBuilder<LeagueComponent> builder = 
-                _componentFactory.LeagueComponentBuilder();
             IEnumerable<IEntity> teams = _context.GetEntitiesByComponent<TeamComponent>();
             for (int i = 0; i < numberOfLeagues; i++)
             {
                 IEntity league = _context.Create()
-                    .AddComponent<LeagueComponent>(builder.Build());
-                league.AddComponent<LeagueMembershipComponent>(
-                    new LeagueMembershipComponent(league.EntityId.Id, true));
-                LeagueMembershipComponent leagueTeamMembership = 
-                    new LeagueMembershipComponent(league.EntityId.Id, false);
-                var teamEntities = teams.Skip(skip).Take(numberOfTeamsPerLeague);
-                teamEntities.ToList().ForEach(
-                    x => x.AddComponent<LeagueMembershipComponent>(leagueTeamMembership));
+                    .AddComponent(ComponentFactory.CreateLeagueComponent())
+                    .CreateLeagueMembershipComponent();
+                LeagueMembershipComponent leagueTeamMembership =
+                    ComponentFactory.CreateLeagueTeamMembershipComponent(league);
+                AddTeamsToLeague(numberOfTeamsPerLeague, skip, teams, leagueTeamMembership);
                 skip += numberOfTeamsPerLeague;
             }
+        }
+
+        private static void AddTeamsToLeague(int numberOfTeamsPerLeague, int skip, IEnumerable<IEntity> teams, LeagueMembershipComponent leagueTeamMembership)
+        {
+            teams.Skip(skip).Take(numberOfTeamsPerLeague).ToList().ForEach(
+                x => x.AddComponent(leagueTeamMembership));
         }
 
         public IEnumerable<LeagueModel> GetAll()

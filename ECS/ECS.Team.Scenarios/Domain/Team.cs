@@ -14,30 +14,33 @@ namespace DL.ECS.Team.Scenarios.Domain
     public class Teams
     {
         private Context _context;
-        private readonly ComponentFactory _componentFactory;
 
-        public Teams(Context context, ComponentFactory componentFactory)
+        public Teams(Context context)
         {
             _context = context;
-            _componentFactory = componentFactory;
         }
 
         public void Create(int numberOfTeams, int playersPerTeam)
         {
             int skip = 0;
-            IComponentBuilder<TeamComponent> builder = _componentFactory.TeamComponentBuilder();
             IEnumerable<IEntity> players = _context.GetEntitiesByComponent<PlayerComponent>();
             for (int i = 0; i < numberOfTeams; i++)
-            { 
-                IEntity team = _context.Create().AddComponent<TeamComponent>(builder.Build());
-                team.AddComponent<TeamMembershipComponent>(
-                    new TeamMembershipComponent(team.EntityId.Id, true));
+            {
+                IEntity team = _context.Create()
+                    .AddComponent(ComponentFactory.CreateTeamComponent())
+                    .CreateTeamMembershipComponent();
                 TeamMembershipComponent teamMembership =
-                    new TeamMembershipComponent(team.EntityId.Id, false);
-                players.Skip(skip).Take(playersPerTeam).ToList()
-                .ForEach(x => x.AddComponent<TeamMembershipComponent>(teamMembership));
+                    ComponentFactory.CreateTeamPlayerMembershipComponent(team);
+
+                AddPlayers(playersPerTeam, skip, players, teamMembership);
                 skip += playersPerTeam;
             }
+        }
+
+        private static void AddPlayers(int playersPerTeam, int skip, IEnumerable<IEntity> players, TeamMembershipComponent teamMembership)
+        {
+            players.Skip(skip).Take(playersPerTeam).ToList()
+                .ForEach(x => x.AddComponent(teamMembership));
         }
 
         public void SetTeamCaptain(EntityId teamId, EntityId playerId)

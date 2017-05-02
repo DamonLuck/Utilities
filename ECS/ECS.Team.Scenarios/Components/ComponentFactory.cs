@@ -1,49 +1,39 @@
-﻿using System;
+﻿using DL.ECS.Core;
+using System;
 using System.Collections.Generic;
 
 namespace DL.ECS.Team.Scenarios.Components
 {
-    public class ComponentFactory
+    public static class ComponentFactory
     {
-        public ComponentFactory()
-        {
-            ComponentLookup = new List<Type>()
+        public static IList<Type> ComponentLookup = new List<Type>()
             {
                 typeof(PlayerComponent),
-                typeof(PlayerCaptainComponent),
                 typeof(TeamComponent),
                 typeof(LeagueComponent),
-                typeof(PersonComponent),
                 typeof(LeagueMembershipComponent),
                 typeof(TeamMembershipComponent)
             };
-        }
 
-        public IList<Type> ComponentLookup;
+        public static LeagueComponent CreateLeagueComponent()
+            => new LeagueComponent() { Name = Faker.Company.Name() };
 
-        public PlayerComponentBuilder PlayerComponentBuilder()
-        {
-            return new PlayerComponentBuilder();
-        }
+        public static PlayerComponent CreatePlayerComponent()
+            => new PlayerComponent() { Name = Faker.Name.FullName() };
 
-        public PlayerCaptainComponentBuilder PlayerCaptainComponentBuilder()
-        {
-            return new PlayerCaptainComponentBuilder();
-        }
+        public static TeamComponent CreateTeamComponent()
+            => new TeamComponent() { Name = Faker.Address.City()};
 
-        public TeamComponentBuilder TeamComponentBuilder()
-        {
-            return new TeamComponentBuilder();
-        }
+        public static IEntity CreateLeagueMembershipComponent(this IEntity entity)
+            => entity.AddComponent(new LeagueMembershipComponent(entity.EntityId.Id, true));
 
-        public LeagueComponentBuilder LeagueComponentBuilder()
-        {
-            return new LeagueComponentBuilder();
-        }
+        public static LeagueMembershipComponent CreateLeagueTeamMembershipComponent(IEntity league)
+            => new LeagueMembershipComponent(league.EntityId.Id, false);
 
-        public PersonComponentBuilder PersonComponentBuilder()
-        {
-            return new PersonComponentBuilder();
-        }
+        public static IEntity CreateTeamMembershipComponent(this IEntity entity)
+            => entity.AddComponent(new TeamMembershipComponent(entity.EntityId.Id, true));
+
+        public static TeamMembershipComponent CreateTeamPlayerMembershipComponent(IEntity team)
+            => new TeamMembershipComponent(team.EntityId.Id, false);
     }
 }

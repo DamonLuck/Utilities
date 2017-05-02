@@ -8,8 +8,7 @@ namespace ECS.Team.Scenarios.Web.Models
     {
         static Game()
         {
-            ComponentFactory factory = new ComponentFactory();
-            Context = new DomainContext(factory);
+            Context = new DomainContext();
             SetupSystem setupSystem =
                 new SetupSystem(Context);
             setupSystem.Execute();

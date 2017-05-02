@@ -14,21 +14,17 @@ namespace DL.ECS.Team.Scenarios.Domain
     public class Players
     {
         private Context _context;
-        private readonly ComponentFactory _componentFactory;
 
-        public Players(Context context, ComponentFactory componentFactory)
+        public Players(Context context)
         {
             _context = context;
-            _componentFactory = componentFactory;
         }
 
         public void Create(int numberOfPlayers)
         {
-            IComponentBuilder<PlayerComponent> builder = 
-                _componentFactory.PlayerComponentBuilder();
-
             for(int i=0; i< numberOfPlayers; i++)
-                _context.Create().AddComponent<PlayerComponent>(builder.Build());
+                _context.Create().AddComponent(
+                    ComponentFactory.CreatePlayerComponent());
         }
 
         public IEnumerable<PlayerModel> GetAll(long teamId)
