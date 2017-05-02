@@ -29,11 +29,16 @@ namespace DL.ECS.Team.Scenarios.Domain
                 _componentFactory.LeagueComponentBuilder();
             IEnumerable<IEntity> teams = _context.GetEntitiesByComponent<TeamComponent>();
             for (int i = 0; i < numberOfLeagues; i++)
-            { 
-                IEntity league = _context.Create().AddComponent<LeagueComponent>(builder.Build());
-                _context.CreateSet()
-                    .AddPrimaryEntity(league)
-                    .AddEntities(teams.Skip(skip).Take(numberOfTeamsPerLeague));
+            {
+                IEntity league = _context.Create()
+                    .AddComponent<LeagueComponent>(builder.Build());
+                league.AddComponent<LeagueMembershipComponent>(
+                    new LeagueMembershipComponent(league.EntityId.Id, true));
+                LeagueMembershipComponent leagueTeamMembership = 
+                    new LeagueMembershipComponent(league.EntityId.Id, false);
+                var teamEntities = teams.Skip(skip).Take(numberOfTeamsPerLeague);
+                teamEntities.ToList().ForEach(
+                    x => x.AddComponent<LeagueMembershipComponent>(leagueTeamMembership));
                 skip += numberOfTeamsPerLeague;
             }
         }

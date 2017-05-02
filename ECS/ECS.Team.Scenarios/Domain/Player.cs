@@ -33,11 +33,10 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public IEnumerable<PlayerModel> GetAll(long teamId)
         {
-            IRelation leagueRelation =
-                _context.GetRelationsBy(SetFunctions.LookupByPrimaryEntity(new EntityId(teamId)))
-                .Single();
+            var entities = _context.GetEntitiesByComponent<TeamMembershipComponent>()
+                .Where(x => x.GetComponent<TeamMembershipComponent>().TeamId == teamId);
 
-            return leagueRelation.GetEntities()
+            return entities
                 .Where(x => x.GetComponent<PlayerComponent>() != null)
                 .Select(x => CreateTeamModel(
                     x.GetComponent<PlayerComponent>(), x));

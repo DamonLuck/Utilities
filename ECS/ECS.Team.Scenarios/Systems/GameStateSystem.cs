@@ -47,9 +47,6 @@ namespace DL.ECS.Team.Scenarios.Systems
 
             if(entityId != -1)
             {
-                IEnumerable<IRelation> relations = 
-                    _context.GetRelationsBy(SetFunctions.LookupByPrimaryEntity(new EntityId(entityId)));
-                relations.ToList().ForEach(x=> WriteEntitiesToConsole(x.GetEntities()));
             }
         }
 

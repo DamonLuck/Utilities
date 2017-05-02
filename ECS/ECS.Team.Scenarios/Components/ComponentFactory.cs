@@ -13,7 +13,9 @@ namespace DL.ECS.Team.Scenarios.Components
                 typeof(PlayerCaptainComponent),
                 typeof(TeamComponent),
                 typeof(LeagueComponent),
-                typeof(PersonComponent)
+                typeof(PersonComponent),
+                typeof(LeagueMembershipComponent),
+                typeof(TeamMembershipComponent)
             };
         }
 
@@ -37,6 +39,11 @@ namespace DL.ECS.Team.Scenarios.Components
         public LeagueComponentBuilder LeagueComponentBuilder()
         {
             return new LeagueComponentBuilder();
+        }
+
+        public PersonComponentBuilder PersonComponentBuilder()
+        {
+            return new PersonComponentBuilder();
         }
     }
 }

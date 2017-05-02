@@ -36,22 +36,6 @@ namespace DL.ECS.Core.Tests.Scenario
             result.ToList().Should().BeEquivalentTo(teams.ToList());
         }
 
-        [Fact]
-        public void EntitiesWithSet_Matches_ThoseAddedToTheSet()
-        {
-            int teamCount = 3;
-            int playerCount = 5;
-
-            IEnumerable<IEntity> teams = AddTeams(teamCount);
-            IEnumerable<IEntity> players = AddPlayers(playerCount);
-
-            var set = _context.CreateSet()
-                .AddEntities(teams)
-                .AddEntities(players);
-
-            set.GetEntities().Should().BeEquivalentTo(teams.Union(players));
-        }
-
         private IEnumerable<IEntity> AddTeams(int count)
         {
             List<IEntity> result = new List<IEntity>();

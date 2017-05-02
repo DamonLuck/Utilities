@@ -7,7 +7,6 @@ namespace DL.ECS.Core
 {
     public class Context
     {
-        private RelationManager _relationManager;
         private ComponentManager _componentManager;
         private Dictionary<EntityId, Entity> _entities = new Dictionary<EntityId, Entity>();
         private readonly int _totalComponents;
@@ -15,7 +14,6 @@ namespace DL.ECS.Core
         public Context(IList<Type> componentLookup)
         {
             _totalComponents = componentLookup.Count;
-            _relationManager = new RelationManager(this);
             _componentManager = new ComponentManager(this, componentLookup);
         }
 
@@ -25,11 +23,6 @@ namespace DL.ECS.Core
             _entities.Add(newEntity.EntityId, newEntity);
             return newEntity;
         }
-
-        public ISet CreateSet() => Set.Create(_relationManager);
-
-        public IEnumerable<IRelation> GetRelationsBy(Func<IRelation, bool> predicate)
-            => _relationManager.GetRelationsBy(predicate);
 
         public IEnumerable<IEntity> GetEntitiesByComponent<TComponent>()
             where TComponent : IComponent
@@ -48,7 +41,6 @@ namespace DL.ECS.Core
                     $"id {entity.EntityId} no longer exists", entity);
 
             Entity entityToDestroy = _entities[entity.EntityId];
-            _relationManager.DestroyEntityRelations(entity);
             _componentManager.DestroyComponentRelations(entity);
             _entities.Remove(entity.EntityId);
             entityToDestroy.Release();

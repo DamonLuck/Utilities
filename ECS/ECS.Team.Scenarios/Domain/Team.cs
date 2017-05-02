@@ -30,38 +30,27 @@ namespace DL.ECS.Team.Scenarios.Domain
             for (int i = 0; i < numberOfTeams; i++)
             { 
                 IEntity team = _context.Create().AddComponent<TeamComponent>(builder.Build());
-                _context.CreateSet()
-                    .AddPrimaryEntity(team)
-                    .AddEntities(players.Skip(skip).Take(playersPerTeam));
+                team.AddComponent<TeamMembershipComponent>(
+                    new TeamMembershipComponent(team.EntityId.Id, true));
+                TeamMembershipComponent teamMembership =
+                    new TeamMembershipComponent(team.EntityId.Id, false);
+                players.Skip(skip).Take(playersPerTeam).ToList()
+                .ForEach(x => x.AddComponent<TeamMembershipComponent>(teamMembership));
                 skip += playersPerTeam;
             }
         }
 
         public void SetTeamCaptain(EntityId teamId, EntityId playerId)
         {
-            IComponentBuilder<PlayerComponent> builder = 
-                _componentFactory.PlayerComponentBuilder();
-            IComponentBuilder<PlayerCaptainComponent> playerCaptainBuilder = 
-                _componentFactory.PlayerCaptainComponentBuilder();
-            var teamRelation = _context.GetRelationsBy(
-                SetFunctions.LookupByPrimaryEntity(teamId))
-                .Single();
-            foreach(var teamEntity in teamRelation.GetEntities())
-            {
-                teamEntity.RemoveComponent<PlayerCaptainComponent>();
-                if (teamEntity.EntityId == playerId)
-                    teamEntity.AddComponent<PlayerCaptainComponent>(
-                        playerCaptainBuilder.Build());
-            }
+
         }
 
         public IEnumerable<TeamModel> GetAll(long leagueId)
         {
-            IRelation leagueRelation =
-                _context.GetRelationsBy(SetFunctions.LookupByPrimaryEntity(new EntityId(leagueId)))
-                .Single();
+            var entities = _context.GetEntitiesByComponent<LeagueMembershipComponent>()
+                .Where(x => x.GetComponent<LeagueMembershipComponent>().LeagueId == leagueId);
 
-            return leagueRelation.GetEntities()
+            return entities
                 .Where(x => x.GetComponent<TeamComponent>() != null)
                 .Select(x => CreateTeamModel(
                     x.GetComponent<TeamComponent>(), x));
