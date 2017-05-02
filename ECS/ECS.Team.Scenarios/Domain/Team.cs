@@ -24,6 +24,7 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public void Create(int numberOfTeams, int playersPerTeam)
         {
+            int skip = 0;
             IComponentBuilder builder = _componentFactory.TeamComponentBuilder();
             IEnumerable<IEntity> players = _context.GetEntitiesByComponent<PlayerComponent>();
             for (int i = 0; i < numberOfTeams; i++)
@@ -31,7 +32,8 @@ namespace DL.ECS.Team.Scenarios.Domain
                 IEntity team = _context.Create().AddComponent<TeamComponent>(builder);
                 _context.CreateSet()
                     .AddPrimaryEntity(team)
-                    .AddEntities(players.Take(playersPerTeam));
+                    .AddEntities(players.Skip(skip).Take(playersPerTeam));
+                skip += playersPerTeam;
             }
         }
 
