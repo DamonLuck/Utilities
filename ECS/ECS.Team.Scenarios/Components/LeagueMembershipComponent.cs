@@ -10,7 +10,26 @@ namespace DL.ECS.Team.Scenarios.Components
             IsLeague = isLeague;
         }
 
+        public LeagueMembershipComponent(long leagueId, bool isLeague, 
+            int won, int lost, int draw, int gf, int ga)
+        {
+            LeagueId = leagueId;
+            IsLeague = isLeague;
+            Won = won;
+            Lost = lost;
+            Draw = draw;
+            Gf = gf;
+            Ga = ga;
+        }
+
         public long LeagueId { get;}
         public bool IsLeague { get; }
+        public int Won { get; }
+        public int Lost { get; }
+        public int Draw { get; }
+        public int GF { get; }
+        public int GA { get; }
+        public int Gf { get; }
+        public int Ga { get; }
     }
 }

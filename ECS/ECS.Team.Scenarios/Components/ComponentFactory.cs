@@ -28,7 +28,7 @@ namespace DL.ECS.Team.Scenarios.Components
             => entity.AddComponent(new LeagueMembershipComponent(entity.EntityId.Id, true));
 
         public static LeagueMembershipComponent CreateLeagueTeamMembershipComponent(IEntity league)
-            => new LeagueMembershipComponent(league.EntityId.Id, false);
+            => new LeagueMembershipComponent(league.EntityId.Id, false,0,0,0,0,0);
 
         public static IEntity CreateTeamMembershipComponent(this IEntity entity)
             => entity.AddComponent(new TeamMembershipComponent(entity.EntityId.Id, true));

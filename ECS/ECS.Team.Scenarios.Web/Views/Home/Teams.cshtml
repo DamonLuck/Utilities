@@ -2,11 +2,32 @@
 @{
     ViewBag.Title = "Teams";
 }
+<br/>
+<table class="table table-striped">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>Team</td>
+            <td>P   </td>
+            <td>W   </td>
+            <td>D   </td>
+            <td>L   </td>
+            <td>GF  </td>
+            <td>GA  </td>
+            <td>Pts </td>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(@item.Name, "Players", "Home", new { teamId = @item.Id }, null)</td>
+            <td>@item.P</td>
+            <td>@item.W</td>
+            <td>@item.D</td>
+            <td>@item.L</td>
+            <td>@item.GF</td>
+            <td>@item.GA</td>
+            <td>@item.Pts</td>
+        </tr>
+    }
 
-<b>Teams</b>
-<br />
-@foreach (var item in Model)
-{
-    @Html.ActionLink(@item.Name, "Players", "Home", new { teamId = @item.Id }, null)
-    <br />
-}
+</table>
