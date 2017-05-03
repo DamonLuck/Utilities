@@ -111,7 +111,7 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .Select(x => CreateTeamModel(
                     x.GetComponent<TeamComponent>(),
                     x.GetComponent<LeagueMembershipComponent>(), x))
-                    .OrderBy(x=>x.Pts)
+                    .OrderByDescending(x=>x.Pts)
                     .ThenBy(x=>x.Name);
         }
 
