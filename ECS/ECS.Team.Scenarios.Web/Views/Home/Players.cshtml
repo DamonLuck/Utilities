@@ -7,6 +7,13 @@
 <br />
 @foreach (var item in Model)
 {
+    @Html.ActionLink("C", "SetCaptain", "Home", new { teamId = @item.TeamId, playerId = @item.Id }, null)
+
+    @item.Id
     @item.Name
+    if (@item.IsCaptain)
+    {
+        <div>(Cap)</div>
+    }
     <br />
 }

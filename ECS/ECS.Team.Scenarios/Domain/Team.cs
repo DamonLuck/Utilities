@@ -37,9 +37,36 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .ForEach(x => x.AddComponent(teamMembership));
         }
 
-        public void SetTeamCaptain(EntityId teamId, EntityId playerId)
+        public void SetTeamCaptain(long teamId, long playerId)
         {
+            // Remove current captain if required
+            var currentCaptain = _context.GetEntitiesByComponent<TeamMembershipComponent>
+                (x => !x.IsTeam && x.TeamId == teamId && x.IsCaptain).FirstOrDefault();
+            if (currentCaptain != null && currentCaptain.EntityId.Id == playerId)
+                return; // Correct player is captain already
+            else if (currentCaptain != null)
+            {
+                var teamMembership = currentCaptain.GetComponent<TeamMembershipComponent>();
+                currentCaptain.ReplaceComponent(CreateTeamMembershipComponent(teamMembership, false));
+                // Change this player to not be captain
+            }
+            var newCaptain = _context.GetEntitiesByComponent<TeamMembershipComponent>
+                (x => !x.IsTeam && x.TeamId == teamId)
+                .Where(x => x.EntityId.Id == playerId).FirstOrDefault();
 
+            if(newCaptain != null)
+            { 
+                var newCaptainMembership = newCaptain.GetComponent<TeamMembershipComponent>();
+                newCaptain.ReplaceComponent(CreateTeamMembershipComponent(newCaptainMembership, true));
+            }
+        }
+
+        private TeamMembershipComponent CreateTeamMembershipComponent(TeamMembershipComponent teamMembershipComponent , bool isCaptain)
+        {
+            return new TeamMembershipComponent(
+                teamMembershipComponent.TeamId,
+                teamMembershipComponent.IsTeam,
+                isCaptain);
         }
 
         public IEnumerable<TeamModel> GetAll(long leagueId)
@@ -66,7 +93,8 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         private TeamModel CreateTeamModel(TeamComponent teamComponent, IEntity entity)
         {
-            return new TeamModel() { Name = teamComponent.Name, Id = entity.EntityId.Id };
+            return new TeamModel() { Name = teamComponent.Name,
+                Id = entity.EntityId.Id};
         }
     }
 }

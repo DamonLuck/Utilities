@@ -28,5 +28,11 @@ namespace ECS.Team.Scenarios.Web.Controllers
         {
             return View(Game.Context.Players.GetAll(teamId));
         }
+
+        public ActionResult SetCaptain(long teamId, long playerId)
+        {
+            Game.Context.Teams.SetTeamCaptain(teamId, playerId);
+            return RedirectToAction(nameof(Players), "Home", new { teamId = teamId });
+        }
     }
 }

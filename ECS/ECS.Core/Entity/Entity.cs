@@ -15,6 +15,8 @@ namespace DL.ECS.Core
         TComponent GetComponent<TComponent>() where TComponent : IComponent;
         IEntity AddComponent<TComponent>(TComponent component)
              where TComponent : IComponent;
+        IEntity ReplaceComponent<TComponent>(TComponent component)
+             where TComponent : IComponent;
         IEntity RemoveComponent<TComponent>()
              where TComponent : IComponent;
     }
@@ -50,12 +52,22 @@ namespace DL.ECS.Core
             long componentIndex = _componentManager.GetId<TComponent>().Id;
             if (_components[componentIndex] != null)
                 throw new EntityAlreadyHasComponentException(this,
-                    component, 
+                    component,
                     componentIndex);
 
             _components[componentIndex] = component;
             _componentManager.AddComponent(new ComponentId(componentIndex), this.EntityId);
             return this;
+        }
+
+        public IEntity ReplaceComponent<TComponent>(TComponent component)
+             where TComponent : IComponent
+        {
+            long componentIndex = _componentManager.GetId<TComponent>().Id;
+            if (_components[componentIndex] != null)
+                RemoveComponent<TComponent>();
+
+            return AddComponent(component);
         }
 
         public IEntity RemoveComponent<TComponent>()
