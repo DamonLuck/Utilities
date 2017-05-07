@@ -184,7 +184,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Players.cshtml" />
     <Content Include="Views\Home\Teams.cshtml" />
-    <Content Include="Views\Home\Leagues.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Fixtures.cshtml" />
   </ItemGroup>

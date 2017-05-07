@@ -8,7 +8,6 @@
 <div>Round @Model.RoundNumber</div>
 @Html.ActionLink("Prev", "PrevRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber }, null)
 @Html.ActionLink("Next", "NextRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber}, null)
-@Html.ActionLink("NextTurn", "NextTurn", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber }, null)
 
 
 <table class="table table-striped">

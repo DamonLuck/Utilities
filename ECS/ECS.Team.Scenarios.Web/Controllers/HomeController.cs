@@ -11,11 +11,6 @@ namespace ECS.Team.Scenarios.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult Leagues()
-        {
             return View(Game.Context.League.GetAll());
         }
 
@@ -42,6 +37,12 @@ namespace ECS.Team.Scenarios.Web.Controllers
         public ActionResult NextRound(long leagueId, long roundId)
         {
             return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId +1});
+        }
+
+        public ActionResult Simulate(string url)
+        {
+            Game.NextTurn();
+            return Redirect(url);
         }
 
         public ActionResult NextTurn(long leagueId, long roundId)
