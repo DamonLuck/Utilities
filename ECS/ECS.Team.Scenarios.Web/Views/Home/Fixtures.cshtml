@@ -3,8 +3,6 @@
     ViewBag.Title = "Fixtures";
 }
 
-<b>Fixtures</b>
-<br />
 <div>Round @Model.RoundNumber</div>
 @Html.ActionLink("Prev", "PrevRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber }, null)
 @Html.ActionLink("Next", "NextRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber}, null)

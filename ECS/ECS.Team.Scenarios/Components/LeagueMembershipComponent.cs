@@ -18,8 +18,8 @@ namespace DL.ECS.Team.Scenarios.Components
             Won = won;
             Lost = lost;
             Draw = draw;
-            Gf = gf;
-            Ga = ga;
+            GF = gf;
+            GA = ga;
         }
 
         public long LeagueId { get;}
@@ -29,7 +29,5 @@ namespace DL.ECS.Team.Scenarios.Components
         public int Draw { get; }
         public int GF { get; }
         public int GA { get; }
-        public int Gf { get; }
-        public int Ga { get; }
     }
 }

@@ -6,6 +6,7 @@ namespace DL.ECS.Team.Scenarios.Components
 {
     public static class ComponentFactory
     {
+        private static Random _playerStats = new Random();
         public static IList<Type> ComponentLookup = new List<Type>()
             {
                 typeof(PlayerComponent),
@@ -20,7 +21,12 @@ namespace DL.ECS.Team.Scenarios.Components
             => entity.AddComponent(new LeagueComponent() { Name = Faker.Company.Name() });
 
         public static IEntity CreatePlayerComponent(this IEntity entity)
-            => entity.AddComponent(new PlayerComponent() { Name = Faker.Name.FullName() });
+            => entity.AddComponent(new PlayerComponent(Faker.Name.FullName(),
+                _playerStats.Next(100),
+                _playerStats.Next(100),
+                _playerStats.Next(100),
+                _playerStats.Next(100),
+                _playerStats.Next(100)));
 
         public static IEntity CreateTeamComponent(this IEntity entity)
             => entity.AddComponent(new TeamComponent() { Name = Faker.Address.City()});

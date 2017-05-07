@@ -3,17 +3,51 @@
     ViewBag.Title = "Players";
 }
 
-<b>Players</b>
-<br />
-@foreach (var item in Model)
-{
-    @Html.ActionLink("C", "SetCaptain", "Home", new { teamId = @item.TeamId, playerId = @item.Id }, null)
-
-    @item.Id
-    @item.Name
-    if (@item.IsCaptain)
+<table class="table table-striped">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>Name</td>
+            <td>Hnd</td>
+            <td>Tck</td>
+            <td>Pas</td>
+            <td>Sht</td>
+            <td>Sta</td>
+            <td>Cap</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
     {
-        <div>(Cap)</div>
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Handling
+            </td>
+            <td>
+                @item.Tacking
+            </td>
+            <td>
+                @item.Passing
+            </td>
+            <td>
+                @item.Shooting
+            </td>
+            <td>
+                @item.Stamina
+            </td>
+            @if (@item.IsCaptain)
+            {
+            <td>
+                <div>Captain</div>
+            </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Set Captain", "SetCaptain", "Home", new { teamId = @item.TeamId, playerId = @item.Id }, null)
+                </td>
+            }
+        </tr>
     }
-    <br />
-}
+</table>

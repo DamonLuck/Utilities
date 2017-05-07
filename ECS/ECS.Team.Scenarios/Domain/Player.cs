@@ -49,7 +49,12 @@ namespace DL.ECS.Team.Scenarios.Domain
         {
             return new PlayerModel() {TeamId = teamId,
                 Name = playerComponent.Name, Id = entity.EntityId.Id,
-                IsCaptain = teamMembershipComponent.IsCaptain};
+                IsCaptain = teamMembershipComponent.IsCaptain,
+                Handling = playerComponent.Handling,
+                Tacking = playerComponent.Tacking,
+                Passing = playerComponent.Passing,
+                Shooting = playerComponent.Shooting,
+                Stamina = playerComponent.Stamina};
         }
     }
 }
