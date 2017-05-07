@@ -34,9 +34,20 @@ namespace ECS.Team.Scenarios.Web.Controllers
             return View(Game.Context.Fixtures.GetRound(leagueId, roundId));
         }
 
+        public ActionResult PrevRound(long leagueId, long roundId)
+        {
+            return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId -1 });
+        }
+
         public ActionResult NextRound(long leagueId, long roundId)
         {
             return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId +1});
+        }
+
+        public ActionResult NextTurn(long leagueId, long roundId)
+        {
+            Game.NextTurn();
+            return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId});
         }
 
         public ActionResult SetCaptain(long teamId, long playerId)

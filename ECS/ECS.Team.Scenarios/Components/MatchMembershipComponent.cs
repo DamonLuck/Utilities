@@ -9,7 +9,8 @@ namespace DL.ECS.Team.Scenarios.Components
             long homeTeamId,
             long awayTeamId,
             int homeGoals,
-            int awayGoals)
+            int awayGoals,
+            bool isGamePlayed = false)
         {
             GameTurn = gameTurn;
             LeagueId = leagueId;
@@ -17,8 +18,10 @@ namespace DL.ECS.Team.Scenarios.Components
             AwayTeamId = awayTeamId;
             HomeGoals = homeGoals;
             AwayGoals = awayGoals;
+            IsGamePlayed = isGamePlayed;
         }
 
+        public bool IsGamePlayed { get; }
         public long GameTurn { get; }
         public long LeagueId { get; }
         public long HomeTeamId { get; }

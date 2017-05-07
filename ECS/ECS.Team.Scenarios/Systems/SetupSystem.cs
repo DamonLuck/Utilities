@@ -72,6 +72,7 @@ namespace DL.ECS.Team.Scenarios.Systems
             }
         }
 
+        // http://bluebones.net/2005/05/generating-fixture-lists/
         private void FixtureGenerator(LeagueModel league, IEnumerable<TeamModel> teams)
         {
             TeamModel[] teamsArray = teams.ToArray();

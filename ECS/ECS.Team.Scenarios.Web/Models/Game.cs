@@ -4,7 +4,7 @@ using DL.ECS.Team.Scenarios.Systems;
 
 namespace ECS.Team.Scenarios.Web.Models
 {
-    public class Game
+    public static class Game
     {
         static Game()
         {
@@ -12,7 +12,11 @@ namespace ECS.Team.Scenarios.Web.Models
             SetupSystem setupSystem =
                 new SetupSystem(Context);
             setupSystem.Execute();
+
+            _matchSystem = new MatchSystem(Context);
         }
+        private static MatchSystem _matchSystem;
+        public static void NextTurn() => _matchSystem.Execute();
 
         public static DomainContext Context { get; }
     }
