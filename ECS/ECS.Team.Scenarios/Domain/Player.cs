@@ -5,13 +5,6 @@ using System.Linq;
 
 namespace DL.ECS.Team.Scenarios.Domain
 {
-    public class PlayerModel
-    {
-        public long Id { get; set; }
-        public long TeamId { get; set; }
-        public string Name { get; set; }
-        public bool IsCaptain { get; set; }
-    }
 
     public class Players
     {
@@ -24,8 +17,7 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public void Create()
         {
-            _context.Create().AddComponent(
-                ComponentFactory.CreatePlayerComponent());
+            _context.Create().CreatePlayerComponent();
         }
 
         public IEnumerable<PlayerModel> GetAll(long teamId)

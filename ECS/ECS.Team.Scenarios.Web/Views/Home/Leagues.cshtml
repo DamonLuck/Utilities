@@ -5,8 +5,18 @@
 
 <b>Leagues</b>
 <br />
-@foreach (var item in Model)
-{
-    @Html.ActionLink(@item.Name, "Teams", "Home", new { leagueId = @item.Id }, null)
-    <br/>
-}
+<table class="table table-striped">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>League</td>
+            <td>Fixtures</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(@item.Name, "Teams", "Home", new { leagueId = @item.Id}, null)</td>
+            <td>@Html.ActionLink("Fixtures", "Fixtures", "Home", new { leagueId = @item.Id, roundId = 1 }, null)</td>
+        </tr>
+    }
+</table>

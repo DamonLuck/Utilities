@@ -5,11 +5,6 @@ using System.Linq;
 
 namespace DL.ECS.Team.Scenarios.Domain
 {
-    public class LeagueModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-    }
 
     public class League
     {
@@ -23,17 +18,15 @@ namespace DL.ECS.Team.Scenarios.Domain
         public void Create(IEnumerable<IEntity> teams)
         {
             IEntity league = _context.Create()
-                    .AddComponent(ComponentFactory.CreateLeagueComponent())
+                    .CreateLeagueComponent()
                     .CreateLeagueMembershipComponent();
             AddTeamsToLeague(league, teams);
         }
 
         private static void AddTeamsToLeague(IEntity league, IEnumerable<IEntity> teams)
         {
-            LeagueMembershipComponent leagueTeamMembership =
-                ComponentFactory.CreateLeagueTeamMembershipComponent(league);
             teams.ToList().ForEach(
-                    x => x.AddComponent(leagueTeamMembership));
+                    x => x.CreateLeagueTeamMembershipComponent(league));
         }
 
         public IEnumerable<LeagueModel> GetAll()

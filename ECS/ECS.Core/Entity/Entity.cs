@@ -36,7 +36,7 @@ namespace DL.ECS.Core
             entity._components = new IComponent[totalComponents];
             entity._componentManager = componentManager;
 
-            AmbientLogger.SystemNotification.EntityCreated(entity);
+          //  AmbientLogger.SystemNotification.EntityCreated(entity);
             return entity;
         }
 

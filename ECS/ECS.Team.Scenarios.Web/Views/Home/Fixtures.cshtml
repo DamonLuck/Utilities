@@ -1,0 +1,27 @@
+﻿@model DL.ECS.Team.Scenarios.Domain.RoundModel
+@{
+    ViewBag.Title = "Fixtures";
+}
+
+<b>Fixtures</b>
+<br />
+<div>Round @Model.RoundNumber</div>
+@Html.ActionLink("Next", "NextRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber}, null)
+
+<table class="table table-striped">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>Home</td>
+            <td></td>
+            <td>Away</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Fixtures)
+    {
+        <tr>
+            <td>@Html.ActionLink(@item.HomeTeam.TeamName, "Players", "Home", new { teamId = @item.HomeTeam.TeamId }, null)</td>
+            <td>vs</td>
+            <td>@Html.ActionLink(@item.AwayTeam.TeamName, "Players", "Home", new { teamId = @item.AwayTeam.TeamId }, null)</td>
+        </tr>
+    }
+</table>

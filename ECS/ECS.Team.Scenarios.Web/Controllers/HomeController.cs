@@ -29,6 +29,16 @@ namespace ECS.Team.Scenarios.Web.Controllers
             return View(Game.Context.Players.GetAll(teamId));
         }
 
+        public ActionResult Fixtures(long leagueId, int roundId)
+        {
+            return View(Game.Context.Fixtures.GetRound(leagueId, roundId));
+        }
+
+        public ActionResult NextRound(long leagueId, long roundId)
+        {
+            return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId +1});
+        }
+
         public ActionResult SetCaptain(long teamId, long playerId)
         {
             Game.Context.Teams.SetTeamCaptain(teamId, playerId);

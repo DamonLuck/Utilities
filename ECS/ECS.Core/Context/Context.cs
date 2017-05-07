@@ -35,7 +35,15 @@ namespace DL.ECS.Core
                     .GetEntities<TComponent>()
                     .Where(x => predicate(x.GetComponent< TComponent>()));
 
+        public IEnumerable<TComponent> GetInstancesOfComponent<TComponent>(Func<TComponent, bool> predicate)
+            where TComponent : IComponent
+            => _componentManager
+                    .GetEntities<TComponent>()
+                    .Where(x => predicate(x.GetComponent<TComponent>()))
+                    .Select(x => x.GetComponent<TComponent>());
+
         public IEnumerable<IEntity> GetAllEntities() => _entities.Values;
+        public IEntity GetEntityById(EntityId entityId) => _entities[entityId];
 
         internal IEntity GetEntity(EntityId index)
         {

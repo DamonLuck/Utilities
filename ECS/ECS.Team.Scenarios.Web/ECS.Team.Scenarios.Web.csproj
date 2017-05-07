@@ -186,6 +186,7 @@
     <Content Include="Views\Home\Teams.cshtml" />
     <Content Include="Views\Home\Leagues.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Fixtures.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

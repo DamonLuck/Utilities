@@ -5,32 +5,6 @@ using System.Linq;
 
 namespace DL.ECS.Team.Scenarios.Domain
 {
-    public class TeamModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public int P
-        {
-            get
-            {
-                return W + D + L;
-            }
-        }
-        public int Pts
-        {
-            get
-            {
-                return W * 3 + D * 1;
-            }
-        }
-
-        public int W { get; set; }
-        public int D { get; set; }
-        public int L { get; set; }
-        public int GF { get; set; }
-        public int GA { get; set; }
-
-    }
 
     public class Teams
     {
@@ -44,7 +18,7 @@ namespace DL.ECS.Team.Scenarios.Domain
         public void Create(IEnumerable<IEntity> players)
         {
             IEntity team = _context.Create()
-                .AddComponent(ComponentFactory.CreateTeamComponent())
+                .CreateTeamComponent()
                 .CreateTeamMembershipComponent();
 
             AddPlayers(team, players);
@@ -52,10 +26,8 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         private static void AddPlayers(IEntity team, IEnumerable<IEntity> players)
         {
-            TeamMembershipComponent teamMembership =
-                ComponentFactory.CreateTeamPlayerMembershipComponent(team);
             players.ToList()
-                .ForEach(x => x.AddComponent(teamMembership));
+                .ForEach(x => x.CreateTeamPlayerMembershipComponent(team));
         }
 
         public void SetTeamCaptain(long teamId, long playerId)
