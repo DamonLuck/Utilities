@@ -1,0 +1,53 @@
+﻿@model IEnumerable < DL.ECS.Team.Scenarios.Domain.PlayerModel >
+@{
+    ViewBag.Title = "Players";
+}
+
+<table class="table table-striped">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>Name</td>
+            <td>Hnd</td>
+            <td>Tck</td>
+            <td>Pas</td>
+            <td>Sht</td>
+            <td>Sta</td>
+            <td>Cap</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Handling
+            </td>
+            <td>
+                @item.Tacking
+            </td>
+            <td>
+                @item.Passing
+            </td>
+            <td>
+                @item.Shooting
+            </td>
+            <td>
+                @item.Stamina
+            </td>
+            @if (@item.IsCaptain)
+            {
+            <td>
+                <div>Captain</div>
+            </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Set Captain", "SetCaptain", "Home", new { teamId = @item.TeamId, playerId = @item.Id }, null)
+                </td>
+            }
+        </tr>
+    }
+</table>

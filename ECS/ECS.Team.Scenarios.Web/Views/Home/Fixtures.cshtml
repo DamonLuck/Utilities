@@ -1,0 +1,41 @@
+﻿@model DL.ECS.Team.Scenarios.Domain.RoundModel
+@{
+    ViewBag.Title = "Fixtures";
+}
+
+<div>Round @Model.RoundNumber</div>
+@Html.ActionLink("Prev", "PrevRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber }, null)
+@Html.ActionLink("Next", "NextRound", "Home", new { leagueId = @Model.LeagueId, roundId = @Model.RoundNumber}, null)
+
+
+<table class="table table-striped">
+    <thead style="font-weight:bold">
+        <tr>
+            <td>Home</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Away</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Fixtures)
+    {
+        <tr>
+            @if(@item.IsGamePlayed)
+            {
+            <td>@Html.ActionLink(@item.HomeTeam.TeamName , "Players", "Home", new { teamId = @item.HomeTeam.TeamId }, null)</td>
+            <td>@item.HomeTeam.Goals</td>
+            <td></td>
+            <td>@item.AwayTeam.Goals</td>
+            <td>@Html.ActionLink(@item.AwayTeam.TeamName , "Players", "Home", new { teamId = @item.AwayTeam.TeamId }, null)</td>
+            }
+            else{
+                <td>@Html.ActionLink(@item.HomeTeam.TeamName, "Players", "Home", new { teamId = @item.HomeTeam.TeamId }, null)</td>
+                <td></td>
+                <td>vs</td>
+                <td></td>
+                <td>@Html.ActionLink(@item.AwayTeam.TeamName, "Players", "Home", new { teamId = @item.AwayTeam.TeamId }, null)</td>
+            }
+        </tr>
+    }
+</table>
