@@ -60,7 +60,6 @@
     <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="Components\TeamComponent.cs" />
     <Compile Include="Components\TeamMembershipComponent.cs" />
-    <Compile Include="Domain\Competition.cs" />
     <Compile Include="Domain\DomainContext.cs" />
     <Compile Include="Domain\Fixtures.cs" />
     <Compile Include="Domain\Models\FixturesModel.cs" />

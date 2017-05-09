@@ -11,7 +11,6 @@ namespace DL.ECS.Team.Scenarios.Domain
             Players = new Players(this);
             Teams = new Teams(this);
             League = new League(this);
-            Competition = new Competition(this);
             Fixtures = new Fixtures(this);
         }
 
@@ -21,7 +20,6 @@ namespace DL.ECS.Team.Scenarios.Domain
 
         public League League { get; }
 
-        public Competition Competition { get; }
         public Fixtures Fixtures { get; set; }
     }
 }
