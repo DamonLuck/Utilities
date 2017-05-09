@@ -34,7 +34,7 @@ namespace DL.ECS.Team.Scenarios.Domain
         {
             // Remove current captain if required
             var currentCaptain = _context.GetEntitiesByComponent<TeamMembershipComponent>
-                (x => !x.IsTeam && x.TeamId == teamId && x.IsCaptain).FirstOrDefault();
+                (x => x.TeamId == teamId && x.IsCaptain).FirstOrDefault();
             if (currentCaptain != null && currentCaptain.EntityId.Id == playerId)
                 return; // Correct player is captain already
             else if (currentCaptain != null)
@@ -44,7 +44,7 @@ namespace DL.ECS.Team.Scenarios.Domain
                 // Change this player to not be captain
             }
             var newCaptain = _context.GetEntitiesByComponent<TeamMembershipComponent>
-                (x => !x.IsTeam && x.TeamId == teamId)
+                (x => x.TeamId == teamId)
                 .Where(x => x.EntityId.Id == playerId).FirstOrDefault();
 
             if(newCaptain != null)
@@ -58,7 +58,6 @@ namespace DL.ECS.Team.Scenarios.Domain
         {
             return new TeamMembershipComponent(
                 teamMembershipComponent.TeamId,
-                teamMembershipComponent.IsTeam,
                 isCaptain);
         }
 
@@ -72,8 +71,7 @@ namespace DL.ECS.Team.Scenarios.Domain
         private IEnumerable<IEntity> GetTeams(long leagueId)
         {
             return _context
-                .GetEntitiesByComponent<LeagueMembershipComponent>(x => x.LeagueId == leagueId
-                    && !x.IsLeague);
+                .GetEntitiesByComponent<LeagueMembershipComponent>(x => x.LeagueId == leagueId);
         }
 
         private IEnumerable<TeamModel> CreateTeamModels(IEnumerable<IEntity> entities)

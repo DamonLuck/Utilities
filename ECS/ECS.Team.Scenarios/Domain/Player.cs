@@ -30,8 +30,7 @@ namespace DL.ECS.Team.Scenarios.Domain
         private IEnumerable<IEntity> GetPlayers(long teamId)
         {
             return _context
-                .GetEntitiesByComponent<TeamMembershipComponent>(x => x.TeamId == teamId
-                && !x.IsTeam);
+                .GetEntitiesByComponent<TeamMembershipComponent>(x => x.TeamId == teamId);
         }
 
         private IEnumerable<PlayerModel> CreatePlayerModels(IEnumerable<IEntity> entities, long teamId)

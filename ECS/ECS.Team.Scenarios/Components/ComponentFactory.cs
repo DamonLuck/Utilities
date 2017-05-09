@@ -45,11 +45,11 @@ namespace DL.ECS.Team.Scenarios.Components
                 .AddComponent(new TeamComponent());
 
         public static IEntity CreateLeagueMembershipComponent(this IEntity entity)
-            => entity.AddComponent(new LeagueMembershipComponent(entity.EntityId.Id, true));
+            => entity.AddComponent(new LeagueMembershipComponent(entity.EntityId.Id));
         public static Random rnd = new Random();
         public static IEntity CreateLeagueTeamMembershipComponent(this IEntity team, IEntity league)
             => team.AddComponent(
-                new LeagueMembershipComponent(league.EntityId.Id, false, 0, 0, 0, 0, 0));
+                new LeagueMembershipComponent(league.EntityId.Id, 0, 0, 0, 0, 0));
 
         public static IEntity CreateTeamMembershipComponent(this IEntity entity)
             => entity.AddComponent(new TeamMembershipComponent(entity.EntityId.Id, true));
