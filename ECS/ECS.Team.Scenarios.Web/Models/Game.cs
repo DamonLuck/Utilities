@@ -6,6 +6,7 @@ namespace ECS.Team.Scenarios.Web.Models
 {
     public static class Game
     {
+        static GameTurnSystem _gameTurnSystem;
         static Game()
         {
             Context = new DomainContext();
@@ -13,16 +14,9 @@ namespace ECS.Team.Scenarios.Web.Models
                 new SetupSystem(Context);
             setupSystem.Execute();
 
-            _matchSystem = new MatchSystem(Context);
-            _leagueUpdateSystem = new LeagueUpdateSystem(Context);
+            _gameTurnSystem = new GameTurnSystem(Context);
         }
-        private static MatchSystem _matchSystem;
-        private static LeagueUpdateSystem _leagueUpdateSystem;
-        public static void NextTurn()
-        {
-            _matchSystem.Execute();
-            _leagueUpdateSystem.Execute();
-        }
+        public static void NextTurn() => _gameTurnSystem.Execute();
 
 
         public static DomainContext Context { get; }

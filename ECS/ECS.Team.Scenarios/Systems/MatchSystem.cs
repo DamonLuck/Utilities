@@ -10,7 +10,6 @@ namespace DL.ECS.Team.Scenarios.Systems
     public class MatchSystem : ISystem
     {
         private readonly DomainContext _context;
-        public static int CurrentTurn = 1;
         private Random _random = new Random();
         public MatchSystem(DomainContext context)
         {
@@ -21,7 +20,7 @@ namespace DL.ECS.Team.Scenarios.Systems
         {
             IEnumerable<IEntity> gameEntities = _context
                 .GetEntitiesByComponent<MatchMembershipComponent>
-                (x => x.GameTurn == CurrentTurn);
+                (x => x.GameTurn == GameTurnSystem.CurrentTurn);
 
             foreach(var gameEntity in gameEntities)
             {
@@ -41,8 +40,6 @@ namespace DL.ECS.Team.Scenarios.Systems
                     .CreateMatchResultComponent(match.LeagueId, match.HomeTeamId, 
                         match.AwayTeamId, homeGoals, awayGoals);
             }
-
-            CurrentTurn += 1;
         }
 
     }

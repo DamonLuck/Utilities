@@ -73,6 +73,7 @@
     <Compile Include="Domain\Models\TeamModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemNotificationExtensions.cs" />
+    <Compile Include="Systems\GameTurnSystem.cs" />
     <Compile Include="Systems\LeagueUpdateSystem.cs" />
     <Compile Include="Systems\MatchSystem.cs" />
     <Compile Include="Systems\SetupSystem.cs" />
