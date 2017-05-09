@@ -15,14 +15,17 @@ namespace DL.ECS.Team.Scenarios.Components
                 typeof(LeagueMembershipComponent),
                 typeof(TeamMembershipComponent),
                 typeof(MatchMembershipComponent),
-                typeof(MatchResultComponent)
+                typeof(MatchResultComponent),
+                typeof(NameComponent)
             };
 
         public static IEntity CreateLeagueComponent(this IEntity entity)
-            => entity.AddComponent(new LeagueComponent() { Name = Faker.Company.Name() });
+            => entity.CreateName(Faker.Company.Name())
+            .AddComponent(new LeagueComponent());
 
         public static IEntity CreatePlayerComponent(this IEntity entity)
-            => entity.AddComponent(new PlayerComponent(Faker.Name.FullName(),
+            => entity.CreateName(Faker.Name.FullName())
+                .AddComponent(new PlayerComponent(
                 _playerStats.Next(100),
                 _playerStats.Next(100),
                 _playerStats.Next(100),
@@ -38,7 +41,8 @@ namespace DL.ECS.Team.Scenarios.Components
                 awayGoals));
 
         public static IEntity CreateTeamComponent(this IEntity entity)
-            => entity.AddComponent(new TeamComponent() { Name = Faker.Address.City()});
+            => entity.CreateName(Faker.Address.City())
+                .AddComponent(new TeamComponent());
 
         public static IEntity CreateLeagueMembershipComponent(this IEntity entity)
             => entity.AddComponent(new LeagueMembershipComponent(entity.EntityId.Id, true));
@@ -59,5 +63,8 @@ namespace DL.ECS.Team.Scenarios.Components
             => fixture.AddComponent(
                 new MatchMembershipComponent(
                     gameTurn, league, team1, team2, 0, 0));
+
+        public static IEntity CreateName(this IEntity entity, string name)
+           => entity.AddComponent(new NameComponent(name));
     }
 }

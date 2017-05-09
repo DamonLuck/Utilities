@@ -56,6 +56,7 @@
     <Compile Include="Components\LeagueMembershipComponent.cs" />
     <Compile Include="Components\MatchMembershipComponent.cs" />
     <Compile Include="Components\MatchResultComponent.cs" />
+    <Compile Include="Components\NameComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="Components\TeamComponent.cs" />
     <Compile Include="Components\TeamMembershipComponent.cs" />

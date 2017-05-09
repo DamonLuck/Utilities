@@ -1,5 +1,4 @@
-﻿using DL.ECS.Team.Scenarios.Components;
-using DL.ECS.Team.Scenarios.Domain;
+﻿using DL.ECS.Team.Scenarios.Domain;
 using DL.ECS.Team.Scenarios.Systems;
 
 namespace ECS.Team.Scenarios.Web.Models

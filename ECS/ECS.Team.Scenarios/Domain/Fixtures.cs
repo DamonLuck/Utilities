@@ -32,11 +32,11 @@ namespace DL.ECS.Team.Scenarios.Domain
             var awayTeam = _context.GetEntityById(new EntityId(matchMembership.AwayTeamId));
             FixturesTeamModel homeTeamModel = new FixturesTeamModel (
                 homeTeam.EntityId.Id,
-                homeTeam.GetComponent<TeamComponent>().Name,
+                homeTeam.GetComponent<NameComponent>().Name,
                 matchMembership.HomeGoals);
             FixturesTeamModel awayTeamModel = new FixturesTeamModel(
                 awayTeam.EntityId.Id,
-                awayTeam.GetComponent<TeamComponent>().Name,
+                awayTeam.GetComponent<NameComponent>().Name,
                 matchMembership.AwayGoals);
             return new FixturesModel(homeTeamModel, awayTeamModel, matchMembership.IsGamePlayed);
         }

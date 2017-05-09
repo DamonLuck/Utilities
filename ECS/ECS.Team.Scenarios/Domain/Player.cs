@@ -40,15 +40,17 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .Where(x => x.GetComponent<PlayerComponent>() != null)
                 .Select(x => CreatePlayerModel(teamId,
                     x.GetComponent<PlayerComponent>(),
+                    x.GetComponent<NameComponent>(),
                     x.GetComponent<TeamMembershipComponent>(), x));
         }
 
-        private PlayerModel CreatePlayerModel(long teamId, PlayerComponent playerComponent, 
+        private PlayerModel CreatePlayerModel(long teamId, PlayerComponent playerComponent,
+            NameComponent nameComponent,
             TeamMembershipComponent teamMembershipComponent, 
             IEntity entity)
         {
             return new PlayerModel() {TeamId = teamId,
-                Name = playerComponent.Name, Id = entity.EntityId.Id,
+                Name = nameComponent.Name, Id = entity.EntityId.Id,
                 IsCaptain = teamMembershipComponent.IsCaptain,
                 Handling = playerComponent.Handling,
                 Tacking = playerComponent.Tacking,

@@ -35,7 +35,7 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .Select(x => new LeagueModel()
                 {
                     Id = x.EntityId.Id,
-                    Name = x.GetComponent<LeagueComponent>().Name
+                    Name = x.GetComponent<NameComponent>().Name
                 });
         }
     }

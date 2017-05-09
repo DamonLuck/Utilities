@@ -82,16 +82,18 @@ namespace DL.ECS.Team.Scenarios.Domain
                 .Where(x => x.GetComponent<TeamComponent>() != null)
                 .Select(x => CreateTeamModel(
                     x.GetComponent<TeamComponent>(),
+                    x.GetComponent<NameComponent>(),
                     x.GetComponent<LeagueMembershipComponent>(), x))
                     .OrderByDescending(x=>x.Pts)
                     .ThenBy(x=>x.Name);
         }
 
         private TeamModel CreateTeamModel(TeamComponent teamComponent,
+            NameComponent nameComponent,
             LeagueMembershipComponent leagueMembershipComponent,
             IEntity entity)
         {
-            return new TeamModel() { Name = teamComponent.Name,
+            return new TeamModel() { Name = nameComponent.Name,
                 Id = entity.EntityId.Id,
                 W = leagueMembershipComponent.Won,
                 D = leagueMembershipComponent.Draw,
