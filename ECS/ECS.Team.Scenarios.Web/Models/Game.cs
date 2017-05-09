@@ -14,9 +14,16 @@ namespace ECS.Team.Scenarios.Web.Models
             setupSystem.Execute();
 
             _matchSystem = new MatchSystem(Context);
+            _leagueUpdateSystem = new LeagueUpdateSystem(Context);
         }
         private static MatchSystem _matchSystem;
-        public static void NextTurn() => _matchSystem.Execute();
+        private static LeagueUpdateSystem _leagueUpdateSystem;
+        public static void NextTurn()
+        {
+            _matchSystem.Execute();
+            _leagueUpdateSystem.Execute();
+        }
+
 
         public static DomainContext Context { get; }
     }

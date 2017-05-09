@@ -14,7 +14,8 @@ namespace DL.ECS.Team.Scenarios.Components
                 typeof(LeagueComponent),
                 typeof(LeagueMembershipComponent),
                 typeof(TeamMembershipComponent),
-                typeof(MatchMembershipComponent)
+                typeof(MatchMembershipComponent),
+                typeof(MatchResultComponent)
             };
 
         public static IEntity CreateLeagueComponent(this IEntity entity)
@@ -27,6 +28,14 @@ namespace DL.ECS.Team.Scenarios.Components
                 _playerStats.Next(100),
                 _playerStats.Next(100),
                 _playerStats.Next(100)));
+
+        public static IEntity CreateMatchResultComponent(this IEntity entity,
+            long leagueId, long homeTeamId, long awayTeamId, int homeGoals, int awayGoals)
+            => entity.AddComponent(new MatchResultComponent(leagueId,
+                homeTeamId,
+                awayTeamId,
+                homeGoals,
+                awayGoals));
 
         public static IEntity CreateTeamComponent(this IEntity entity)
             => entity.AddComponent(new TeamComponent() { Name = Faker.Address.City()});
