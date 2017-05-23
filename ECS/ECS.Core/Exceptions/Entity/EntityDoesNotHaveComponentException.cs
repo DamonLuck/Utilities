@@ -1,6 +1,8 @@
-﻿namespace DL.ECS.Core.Exceptions
+﻿using DL.ECS.Core.Entity;
+
+namespace DL.ECS.Core.Exceptions.Entity
 {
-    public class EntityDoesNotHaveComponentException : ECSException
+    public class EntityDoesNotHaveComponentException : EcsException
     {
         public EntityDoesNotHaveComponentException(IEntity entity, long index)
         {

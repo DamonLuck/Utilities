@@ -1,8 +1,9 @@
 ﻿using System;
-using DL.ECS.Core.Exceptions;
 using FluentAssertions;
 using Xunit;
 using System.Collections.Generic;
+using DL.ECS.Core.Entity;
+using DL.ECS.Core.Exceptions.Entity;
 using DL.ECS.Core.Tests.TestComponents;
 
 namespace DL.ECS.Core.Tests
@@ -20,7 +21,7 @@ namespace DL.ECS.Core.Tests
         {
             TeamComponent component = new TeamComponent();
             IEntity entity = CreateSut();
-            entity.AddComponent<TeamComponent>(component);
+            entity.AddComponent(component);
 
             entity.GetComponent<TeamComponent>().Should().Be(component);
         }
@@ -30,7 +31,7 @@ namespace DL.ECS.Core.Tests
         {
             TeamComponent component = new TeamComponent();
             IEntity entity = CreateSut();
-            entity.AddComponent<TeamComponent>(component);
+            entity.AddComponent(component);
             entity.RemoveComponent<TeamComponent>();
 
             entity.GetComponent<TeamComponent>().Should().Be(null);
@@ -41,10 +42,10 @@ namespace DL.ECS.Core.Tests
         {
             PlayerComponent component = new PlayerComponent();
             IEntity entity = CreateSut();
-            entity.AddComponent<PlayerComponent>(component);
+            entity.AddComponent(component);
 
             Assert.Throws(typeof(EntityAlreadyHasComponentException),
-                () => entity.AddComponent<PlayerComponent>(component));
+                () => entity.AddComponent(component));
         }
 
         [Fact]
@@ -52,15 +53,15 @@ namespace DL.ECS.Core.Tests
         {
             TeamComponent component = new TeamComponent();
             IEntity entity = CreateSut();
-            entity.AddComponent<TeamComponent>(component);
+            entity.AddComponent(component);
             entity.RemoveComponent<TeamComponent>();
 
             Assert.Throws(typeof(EntityDoesNotHaveComponentException),
                 () => entity.RemoveComponent<TeamComponent>());
         }
 
-        private Context _context => new Context(_componentLookup);
-        private IEntity CreateSut() => _context.Create();
+        private Context.Context Context => new Context.Context(_componentLookup);
+        private IEntity CreateSut() => Context.Create();
 
         private IList<Type> _componentLookup
             = new List<Type>();

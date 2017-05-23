@@ -1,4 +1,5 @@
-﻿using DL.Infrastructure;
+﻿using DL.ECS.Core.Entity;
+using DL.Infrastructure;
 
 namespace DL.ECS.Core
 {

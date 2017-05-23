@@ -5,19 +5,20 @@ using Faker;
 using System.Collections.Generic;
 using FluentAssertions;
 using System;
+using DL.ECS.Core.Entity;
 
 namespace DL.ECS.Core.Tests.Scenario
 {
     public class S1TeamAndPlayerCreation
     {
-        private Context _context;
+        private Context.Context _context;
 
         public S1TeamAndPlayerCreation()
         {
             _componentLookup.Add(typeof(PlayerComponent));
             _componentLookup.Add(typeof(TeamComponent));
 
-            _context = new Context(_componentLookup);
+            _context = new Context.Context(_componentLookup);
         }
 
         [Fact]
@@ -54,13 +55,13 @@ namespace DL.ECS.Core.Tests.Scenario
             return result;
         }
 
-        private IEntity AddPlayer(Context context)
+        private IEntity AddPlayer(Context.Context context)
         {
             PlayerComponent player = new PlayerComponent() { Name = Name.FullName() };
-            return context.Create().AddComponent<PlayerComponent>(player);
+            return context.Create().AddComponent(player);
         }
 
-        private IEntity AddTeam(Context context)
+        private IEntity AddTeam(Context.Context context)
         {
             TeamComponent team = new TeamComponent() { Name = Address.City() };
             return context.Create().AddComponent(team);

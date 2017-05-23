@@ -1,9 +1,4 @@
-﻿using DL.ECS.Core;
-using DL.ECS.Team.Scenarios.Components;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace DL.ECS.Team.Scenarios.Domain
+﻿namespace DL.ECS.Team.Scenarios.Domain.Models
 {
     public class TeamModel
     {
@@ -27,8 +22,8 @@ namespace DL.ECS.Team.Scenarios.Domain
         public int W { get; set; }
         public int D { get; set; }
         public int L { get; set; }
-        public int GF { get; set; }
-        public int GA { get; set; }
+        public int Gf { get; set; }
+        public int Ga { get; set; }
 
     }
 }

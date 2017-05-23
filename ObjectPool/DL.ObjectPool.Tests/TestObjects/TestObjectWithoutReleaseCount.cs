@@ -1,11 +1,11 @@
-﻿namespace DL.ObjectPool.Tests
+﻿namespace DL.ObjectPool.Tests.TestObjects
 {
     public class TestObjectWithoutReleaseCount : PooledObject<TestObjectWithoutReleaseCount>
     {
         public int Foo { get; private set; }
         public string Bar { get; private set; }
 
-        public static int ConstructorCalls = 0;
+        public static int ConstructorCalls;
 
         public TestObjectWithoutReleaseCount()
         {

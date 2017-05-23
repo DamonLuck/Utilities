@@ -1,10 +1,6 @@
-﻿using DL.ObjectPool;
-using DL.ECS.Core.Exceptions;
-using System;
-using System.Text;
-using DL.ECS.Core.Components;
+﻿using System;
 
-namespace DL.ECS.Core
+namespace DL.ECS.Core.Entity
 {
     public class EntityId
     {
@@ -26,7 +22,7 @@ namespace DL.ECS.Core
 
         public static bool operator ==(EntityId x, EntityId y)
         {
-            return x.Id == y.Id;
+            return y != null && (x != null && x.Id == y.Id);
         }
 
         public static bool operator !=(EntityId x, EntityId y)

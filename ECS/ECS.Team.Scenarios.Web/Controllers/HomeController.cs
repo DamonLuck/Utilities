@@ -1,9 +1,5 @@
-﻿using ECS.Team.Scenarios.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using ECS.Team.Scenarios.Web.Models;
 
 namespace ECS.Team.Scenarios.Web.Controllers
 {
@@ -31,12 +27,12 @@ namespace ECS.Team.Scenarios.Web.Controllers
 
         public ActionResult PrevRound(long leagueId, long roundId)
         {
-            return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId -1 });
+            return RedirectToAction(nameof(Fixtures), "Home", new {leagueId, roundId = roundId -1 });
         }
 
         public ActionResult NextRound(long leagueId, long roundId)
         {
-            return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId +1});
+            return RedirectToAction(nameof(Fixtures), "Home", new {leagueId, roundId = roundId +1});
         }
 
         public ActionResult Simulate(string url)
@@ -48,13 +44,13 @@ namespace ECS.Team.Scenarios.Web.Controllers
         public ActionResult NextTurn(long leagueId, long roundId)
         {
             Game.NextTurn();
-            return RedirectToAction(nameof(Fixtures), "Home", new { leagueId = leagueId, roundId = roundId});
+            return RedirectToAction(nameof(Fixtures), "Home", new {leagueId, roundId});
         }
 
         public ActionResult SetCaptain(long teamId, long playerId)
         {
             Game.Context.Teams.SetTeamCaptain(teamId, playerId);
-            return RedirectToAction(nameof(Players), "Home", new { teamId = teamId });
+            return RedirectToAction(nameof(Players), "Home", new {teamId });
         }
     }
 }

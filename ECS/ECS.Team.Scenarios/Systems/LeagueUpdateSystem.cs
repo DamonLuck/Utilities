@@ -1,4 +1,4 @@
-﻿using DL.ECS.Core;
+﻿using DL.ECS.Core.Entity;
 using DL.ECS.Core.Systems;
 using DL.ECS.Team.Scenarios.Components;
 using DL.ECS.Team.Scenarios.Domain;
@@ -30,39 +30,39 @@ namespace DL.ECS.Team.Scenarios.Systems
                     homeTeam.ReplaceComponent(new LeagueMembershipComponent(
                         homeLeagueMembership.LeagueId,
                             homeLeagueMembership.Won + 1, homeLeagueMembership.Lost,
-                            homeLeagueMembership.Draw, homeLeagueMembership.GF + matchResult.HomeGoals,
-                            homeLeagueMembership.GA + matchResult.AwayGoals));
+                            homeLeagueMembership.Draw, homeLeagueMembership.Gf + matchResult.HomeGoals,
+                            homeLeagueMembership.Ga + matchResult.AwayGoals));
                     awayTeam.ReplaceComponent(new LeagueMembershipComponent(
                         awayLeagueMembership.LeagueId,
                             awayLeagueMembership.Won, awayLeagueMembership.Lost + 1,
-                            awayLeagueMembership.Draw, awayLeagueMembership.GF + matchResult.AwayGoals,
-                            awayLeagueMembership.GA + matchResult.HomeGoals));
+                            awayLeagueMembership.Draw, awayLeagueMembership.Gf + matchResult.AwayGoals,
+                            awayLeagueMembership.Ga + matchResult.HomeGoals));
                 }
                 else if (matchResult.HomeGoals == matchResult.AwayGoals)
                 {
                     homeTeam.ReplaceComponent(new LeagueMembershipComponent(
                         homeLeagueMembership.LeagueId,
                             homeLeagueMembership.Won, homeLeagueMembership.Lost,
-                            homeLeagueMembership.Draw + 1, homeLeagueMembership.GF + matchResult.HomeGoals,
-                            homeLeagueMembership.GA + matchResult.AwayGoals));
+                            homeLeagueMembership.Draw + 1, homeLeagueMembership.Gf + matchResult.HomeGoals,
+                            homeLeagueMembership.Ga + matchResult.AwayGoals));
                     awayTeam.ReplaceComponent(new LeagueMembershipComponent(
                         awayLeagueMembership.LeagueId,
                             awayLeagueMembership.Won, awayLeagueMembership.Lost,
-                            awayLeagueMembership.Draw + 1, awayLeagueMembership.GF + matchResult.AwayGoals,
-                            awayLeagueMembership.GA + matchResult.HomeGoals));
+                            awayLeagueMembership.Draw + 1, awayLeagueMembership.Gf + matchResult.AwayGoals,
+                            awayLeagueMembership.Ga + matchResult.HomeGoals));
                 }
                 else
                 {
                     homeTeam.ReplaceComponent(new LeagueMembershipComponent(
                         homeLeagueMembership.LeagueId,
                             homeLeagueMembership.Won, homeLeagueMembership.Lost + 1,
-                            homeLeagueMembership.Draw, homeLeagueMembership.GF + matchResult.HomeGoals,
-                            homeLeagueMembership.GA + matchResult.AwayGoals));
+                            homeLeagueMembership.Draw, homeLeagueMembership.Gf + matchResult.HomeGoals,
+                            homeLeagueMembership.Ga + matchResult.AwayGoals));
                     awayTeam.ReplaceComponent(new LeagueMembershipComponent(
                         awayLeagueMembership.LeagueId,
                             awayLeagueMembership.Won + 1, awayLeagueMembership.Lost,
-                            awayLeagueMembership.Draw, awayLeagueMembership.GF + matchResult.AwayGoals,
-                            awayLeagueMembership.GA + matchResult.HomeGoals));
+                            awayLeagueMembership.Draw, awayLeagueMembership.Gf + matchResult.AwayGoals,
+                            awayLeagueMembership.Ga + matchResult.HomeGoals));
                 }
 
                 _context.Destroy(matchResultEntity);

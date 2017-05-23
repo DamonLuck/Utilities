@@ -1,4 +1,4 @@
-﻿using DL.ECS.Core;
+﻿using DL.ECS.Core.Components;
 
 namespace DL.ECS.Team.Scenarios.Components
 {
@@ -16,15 +16,15 @@ namespace DL.ECS.Team.Scenarios.Components
             Won = won;
             Lost = lost;
             Draw = draw;
-            GF = gf;
-            GA = ga;
+            Gf = gf;
+            Ga = ga;
         }
 
         public long LeagueId { get;}
         public int Won { get; }
         public int Lost { get; }
         public int Draw { get; }
-        public int GF { get; }
-        public int GA { get; }
+        public int Gf { get; }
+        public int Ga { get; }
     }
 }

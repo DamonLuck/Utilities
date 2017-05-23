@@ -1,4 +1,4 @@
-﻿using DL.ECS.Core;
+﻿using DL.ECS.Core.Components;
 
 namespace DL.ECS.Team.Scenarios.Components
 {

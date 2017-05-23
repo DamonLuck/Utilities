@@ -1,10 +1,11 @@
-﻿using DL.ECS.Core;
-using DL.ECS.Core.Systems;
+﻿using DL.ECS.Core.Systems;
 using DL.ECS.Team.Scenarios.Components;
 using DL.ECS.Team.Scenarios.Domain;
 using DL.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
+using DL.ECS.Core.Entity;
+using DL.ECS.Team.Scenarios.Domain.Models;
 
 namespace DL.ECS.Team.Scenarios.Systems
 {
@@ -41,7 +42,7 @@ namespace DL.ECS.Team.Scenarios.Systems
         private void CreateTeams()
         {
             int skip = 0;
-            IEnumerable<IEntity> players = _context.GetEntitiesByComponent<PlayerComponent>();
+            IEnumerable<IEntity> players = _context.GetEntitiesByComponent<PlayerComponent>().ToList();
 
             for (int i = 0; i < NUMBER_OF_TEAMS; i++)
             {
@@ -53,7 +54,7 @@ namespace DL.ECS.Team.Scenarios.Systems
         private void CreateLeagues()
         {
             int skip = 0;
-            IEnumerable<IEntity> teams = _context.GetEntitiesByComponent<TeamComponent>();
+            IEnumerable<IEntity> teams = _context.GetEntitiesByComponent<TeamComponent>().ToList();
 
             for (int i = 0; i < NUMBER_OF_LEAGUES; i++)
             {
@@ -78,12 +79,9 @@ namespace DL.ECS.Team.Scenarios.Systems
             TeamModel[] teamsArray = teams.ToArray();
             int numberOfTeams = teamsArray.Length;
 
-            // If odd number of teams add a "ghost".
-            bool ghost = false;
             if (numberOfTeams % 2 == 1)
             {
                 numberOfTeams++;
-                ghost = true;
             }
 
             int totalRounds = numberOfTeams - 1;

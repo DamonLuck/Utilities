@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System.Threading.Tasks;
+using DL.ObjectPool.Tests.TestObjects;
 using Xunit;
 
 namespace DL.ObjectPool.Tests

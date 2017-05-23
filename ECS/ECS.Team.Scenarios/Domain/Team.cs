@@ -1,7 +1,9 @@
-﻿using DL.ECS.Core;
-using DL.ECS.Team.Scenarios.Components;
+﻿using DL.ECS.Team.Scenarios.Components;
 using System.Collections.Generic;
 using System.Linq;
+using DL.ECS.Core.Context;
+using DL.ECS.Core.Entity;
+using DL.ECS.Team.Scenarios.Domain.Models;
 
 namespace DL.ECS.Team.Scenarios.Domain
 {
@@ -78,16 +80,13 @@ namespace DL.ECS.Team.Scenarios.Domain
         {
             return entities
                 .Where(x => x.GetComponent<TeamComponent>() != null)
-                .Select(x => CreateTeamModel(
-                    x.GetComponent<TeamComponent>(),
-                    x.GetComponent<NameComponent>(),
+                .Select(x => CreateTeamModel(x.GetComponent<NameComponent>(),
                     x.GetComponent<LeagueMembershipComponent>(), x))
                     .OrderByDescending(x=>x.Pts)
                     .ThenBy(x=>x.Name);
         }
 
-        private TeamModel CreateTeamModel(TeamComponent teamComponent,
-            NameComponent nameComponent,
+        private TeamModel CreateTeamModel(NameComponent nameComponent,
             LeagueMembershipComponent leagueMembershipComponent,
             IEntity entity)
         {
@@ -96,8 +95,8 @@ namespace DL.ECS.Team.Scenarios.Domain
                 W = leagueMembershipComponent.Won,
                 D = leagueMembershipComponent.Draw,
                 L = leagueMembershipComponent.Lost,
-                GF = leagueMembershipComponent.GF,
-                GA = leagueMembershipComponent.GA
+                Gf = leagueMembershipComponent.Gf,
+                Ga = leagueMembershipComponent.Ga
             };
         }
     }

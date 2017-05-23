@@ -1,11 +1,9 @@
-﻿using DL.ObjectPool;
-using DL.ECS.Core.Exceptions;
-using System;
-using System.Text;
+﻿using System.Text;
 using DL.ECS.Core.Components;
-using DL.Infrastructure;
+using DL.ECS.Core.Exceptions.Entity;
+using DL.ObjectPool;
 
-namespace DL.ECS.Core
+namespace DL.ECS.Core.Entity
 {
     public interface IEntity
     {
@@ -56,7 +54,7 @@ namespace DL.ECS.Core
                     componentIndex);
 
             _components[componentIndex] = component;
-            _componentManager.AddComponent(new ComponentId(componentIndex), this.EntityId);
+            _componentManager.AddComponent(new ComponentId(componentIndex), EntityId);
             return this;
         }
 
@@ -88,7 +86,7 @@ namespace DL.ECS.Core
             foreach(var component in _components)
             {
                 if(component != null)
-                    sb.Append($"Component {component.ToString()}\t");
+                    sb.Append($"Component {component}\t");
             }
 
             return sb.ToString();

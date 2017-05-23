@@ -1,4 +1,4 @@
-﻿namespace DL.ECS.Core
+﻿namespace DL.ECS.Core.Components
 {
     public interface IComponent
     {

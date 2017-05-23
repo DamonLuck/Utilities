@@ -1,7 +1,10 @@
-﻿namespace DL.ECS.Core.Exceptions
+﻿using DL.ECS.Core.Components;
+using DL.ECS.Core.Entity;
+
+namespace DL.ECS.Core.Exceptions.Entity
 {
 
-    public class EntityAlreadyHasComponentException : ECSException
+    public class EntityAlreadyHasComponentException : EcsException
     {
         public EntityAlreadyHasComponentException(IEntity entity, IComponent component, long index)
         {

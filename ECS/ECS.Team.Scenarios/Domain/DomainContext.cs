@@ -1,4 +1,4 @@
-﻿using DL.ECS.Core;
+﻿using DL.ECS.Core.Context;
 using DL.ECS.Team.Scenarios.Components;
 
 namespace DL.ECS.Team.Scenarios.Domain

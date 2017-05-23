@@ -1,4 +1,4 @@
-﻿namespace DL.ECS.Team.Scenarios.Domain
+﻿namespace DL.ECS.Team.Scenarios.Domain.Models
 {
     public class FixturesTeamModel
     {

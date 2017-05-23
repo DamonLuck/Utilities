@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DL.ECS.Team.Scenarios.Domain
+namespace DL.ECS.Team.Scenarios.Domain.Models
 {
     public class RoundModel
     {

@@ -1,9 +1,9 @@
-﻿using DL.ECS.Core;
-using DL.ECS.Core.Systems;
+﻿using DL.ECS.Core.Systems;
 using DL.ECS.Team.Scenarios.Components;
 using DL.ECS.Team.Scenarios.Domain;
 using System;
 using System.Collections.Generic;
+using DL.ECS.Core.Entity;
 
 namespace DL.ECS.Team.Scenarios.Systems
 {

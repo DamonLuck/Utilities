@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DL.ECS.Core.Components
 {
@@ -26,7 +22,7 @@ namespace DL.ECS.Core.Components
 
         public static bool operator ==(ComponentId x, ComponentId y)
         {
-            return x.Id == y.Id;
+            return y != null && (x != null && x.Id == y.Id);
         }
 
         public static bool operator !=(ComponentId x, ComponentId y)

@@ -1,15 +1,16 @@
-﻿using DL.ECS.Core.Components;
-using DL.ECS.Core.Exceptions;
-using System;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DL.ECS.Core.Components;
+using DL.ECS.Core.Entity;
+using DL.ECS.Core.Exceptions;
 
-namespace DL.ECS.Core
+namespace DL.ECS.Core.Context
 {
     public class Context
     {
         private ComponentManager _componentManager;
-        private Dictionary<EntityId, Entity> _entities = new Dictionary<EntityId, Entity>();
+        private Dictionary<EntityId, Entity.Entity> _entities = new Dictionary<EntityId, Entity.Entity>();
         private readonly int _totalComponents;
 
         public Context(IList<Type> componentLookup)
@@ -20,7 +21,7 @@ namespace DL.ECS.Core
 
         public IEntity Create()
         {
-            Entity newEntity = Entity.Create(_totalComponents, _componentManager);
+            Entity.Entity newEntity = Entity.Entity.Create(_totalComponents, _componentManager);
             _entities.Add(newEntity.EntityId, newEntity);
             return newEntity;
         }
@@ -56,7 +57,7 @@ namespace DL.ECS.Core
                 throw new EntityException($"Cannot destroy. Entity with "+
                     $"id {entity.EntityId} no longer exists", entity);
 
-            Entity entityToDestroy = _entities[entity.EntityId];
+            Entity.Entity entityToDestroy = _entities[entity.EntityId];
             _componentManager.DestroyComponentRelations(entity);
             _entities.Remove(entity.EntityId);
             entityToDestroy.Release();

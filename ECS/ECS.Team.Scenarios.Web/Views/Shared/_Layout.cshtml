@@ -19,7 +19,7 @@
                 @Html.ActionLink("Leagues", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("Simulate", "Simulate", "Home", new { url = Request.Url.ToString() }, new { @class = "navbar-brand" })</li>
+                <li>@Html.ActionLink("Simulate", "Simulate", "Home", new { url = Request.Url?.ToString() }, new { @class = "navbar-brand" })</li>
             </ul>
 </div>
     </div>

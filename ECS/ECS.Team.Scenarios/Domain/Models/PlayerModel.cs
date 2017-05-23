@@ -1,9 +1,4 @@
-﻿using DL.ECS.Core;
-using DL.ECS.Team.Scenarios.Components;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace DL.ECS.Team.Scenarios.Domain
+﻿namespace DL.ECS.Team.Scenarios.Domain.Models
 {
     public class PlayerModel
     {

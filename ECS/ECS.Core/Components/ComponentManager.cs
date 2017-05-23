@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DL.ECS.Core.Entity;
 
 namespace DL.ECS.Core.Components
 {
@@ -8,10 +9,10 @@ namespace DL.ECS.Core.Components
     {
         private Dictionary<ComponentId, HashSet<EntityId>> _componentEntityRelations =
             new Dictionary<ComponentId, HashSet<EntityId>>();
-        private readonly Context _context;
+        private readonly Context.Context _context;
         private readonly int _totalComponentCount;
         private readonly IDictionary<Type, ComponentId> _componentIdLookup;
-        internal ComponentManager(Context context, IList<Type> componentIdLookup)
+        internal ComponentManager(Context.Context context, IList<Type> componentIdLookup)
         {
             _context = context;
             _totalComponentCount = componentIdLookup.Count;

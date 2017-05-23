@@ -2,7 +2,7 @@
 
 namespace DL.ECS.Core.Exceptions
 {
-    public class ECSException : Exception
+    public class EcsException : Exception
     {
     }
 }

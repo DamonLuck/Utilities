@@ -1,4 +1,6 @@
-﻿namespace DL.ECS.Core.Tests.TestComponents
+﻿using DL.ECS.Core.Components;
+
+namespace DL.ECS.Core.Tests.TestComponents
 {
     public class PlayerComponent : IComponent
     {

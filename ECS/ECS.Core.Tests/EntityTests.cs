@@ -1,9 +1,9 @@
-﻿using DL.ECS.Core.Components;
-using DL.ECS.Core.Exceptions;
+﻿using DL.ECS.Core.Exceptions;
 using DL.ECS.Core.Tests.TestComponents;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using DL.ECS.Core.Entity;
 using Xunit;
 
 namespace DL.ECS.Core.Tests
@@ -19,7 +19,7 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void Entity_CanBe_Created()
         {
-            Context sut = CreateSut();
+            Context.Context sut = CreateSut();
             IEntity entity = sut.Create();
 
             entity.Should().NotBeNull();
@@ -28,7 +28,7 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void Entity_HasA_UniqueId()
         {
-            Context sut = CreateSut();
+            Context.Context sut = CreateSut();
             IEntity entity1 = sut.Create();
             IEntity entity2 = sut.Create();
 
@@ -38,7 +38,7 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void EntityAfterRelease_HasA_UniqueId()
         {
-            Context sut = CreateSut();
+            Context.Context sut = CreateSut();
             IEntity entity = sut.Create();
             EntityId initialId = entity.EntityId;
             sut.Destroy(entity);
@@ -50,9 +50,8 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void Entities_DestroyedTwice_ThrowException()
         {
-            Context sut = CreateSut();
+            Context.Context sut = CreateSut();
             IEntity entity = sut.Create();
-            EntityId initialId = entity.EntityId;
             sut.Destroy(entity);
             Assert.Throws(typeof(EntityException), () => sut.Destroy(entity));
         }
@@ -60,7 +59,7 @@ namespace DL.ECS.Core.Tests
         [Fact]
         public void Entities_AreCreated_WithTotalComponentCount()
         {
-            Context sut = CreateSut();
+            Context.Context sut = CreateSut();
             IEntity entity = sut.Create();
 
             entity.TotalComponents.Should().Be(_componentLookup.Count);
@@ -70,7 +69,7 @@ namespace DL.ECS.Core.Tests
 
         public void Entities_AreCreated_WithComponentsInitialisedAsNull()
         {
-            Context sut = CreateSut();
+            Context.Context sut = CreateSut();
             IEntity entity = sut.Create();
 
             entity.TotalComponents.Should().Be(_componentLookup.Count);
@@ -79,7 +78,7 @@ namespace DL.ECS.Core.Tests
             entity.GetComponent<TeamComponent>().Should().BeNull();
         }
 
-        private Context CreateSut() => new Context(_componentLookup);
+        private Context.Context CreateSut() => new Context.Context(_componentLookup);
 
         private IList<Type> _componentLookup
             = new List<Type>();

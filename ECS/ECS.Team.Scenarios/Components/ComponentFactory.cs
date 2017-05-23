@@ -1,6 +1,6 @@
-﻿using DL.ECS.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DL.ECS.Core.Entity;
 
 namespace DL.ECS.Team.Scenarios.Components
 {
@@ -46,7 +46,7 @@ namespace DL.ECS.Team.Scenarios.Components
 
         public static IEntity CreateLeagueMembershipComponent(this IEntity entity)
             => entity.AddComponent(new LeagueMembershipComponent(entity.EntityId.Id));
-        public static Random rnd = new Random();
+        public static Random Rnd = new Random();
         public static IEntity CreateLeagueTeamMembershipComponent(this IEntity team, IEntity league)
             => team.AddComponent(
                 new LeagueMembershipComponent(league.EntityId.Id, 0, 0, 0, 0, 0));
@@ -56,7 +56,7 @@ namespace DL.ECS.Team.Scenarios.Components
 
         public static IEntity CreateTeamPlayerMembershipComponent(this IEntity player,
             IEntity team)
-            => player.AddComponent(new TeamMembershipComponent(team.EntityId.Id, false));
+            => player.AddComponent(new TeamMembershipComponent(team.EntityId.Id));
 
         public static IEntity CreateFixture(this IEntity fixture,
             int gameTurn, long league, long team1, long team2)

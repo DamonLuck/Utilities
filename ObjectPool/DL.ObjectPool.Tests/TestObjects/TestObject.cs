@@ -1,4 +1,4 @@
-﻿namespace DL.ObjectPool.Tests
+﻿namespace DL.ObjectPool.Tests.TestObjects
 {
     public class TestObject : PooledObject<TestObject>, System.IEquatable<TestObject>
     {
@@ -13,6 +13,9 @@
             return result;
         }
 
-        public bool Equals(TestObject other) => Foo == other.Foo && Bar == other.Bar;
+        public bool Equals(TestObject other)
+        {
+            return other != null && (Foo == other.Foo && Bar == other.Bar);
+        }
     }
 }
