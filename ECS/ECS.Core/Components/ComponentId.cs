@@ -27,7 +27,7 @@ namespace DL.ECS.Core.Components
 
         public static bool operator !=(ComponentId x, ComponentId y)
         {
-            return !(x == y);
+            return x?.Id != y?.Id;
         }
     }
 }

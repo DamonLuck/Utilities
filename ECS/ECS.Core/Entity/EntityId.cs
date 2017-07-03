@@ -27,7 +27,7 @@ namespace DL.ECS.Core.Entity
 
         public static bool operator !=(EntityId x, EntityId y)
         {
-            return !(x == y);
+            return (x?.Id != y?.Id);
         }
     }
 }
